@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$cl-red: red;
+
+
+.mb-202 {
+    margin-bottom: 20px;
+}
+.sel {
+    background: $cl-red;
+}
