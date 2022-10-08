@@ -9,8 +9,13 @@ app.use(express.static(path.join(__dirname, '../client/dist')))
 app.use(express.json())
 
 
-app.get('/todo/hello', (req, res) => {
-    res.json({ a: 1 })
+app.post('/login', async (req, res) => {
+    try {
+      console.log(req.body)
+      res.json(req.body)
+    } catch (e) {
+      console.log(e)
+    }
 })
 
 app.use((req, res, next) => {
