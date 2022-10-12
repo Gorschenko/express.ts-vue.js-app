@@ -40,18 +40,10 @@ export default {
 	methods: {
 		async submit() {
 			try {
-				const { data } = await axios.post(
-					'/login',
-					{
-						email: this.email,
-						password: this.password,
-					},
-					{
-						headers: {
-							'Content-Type': 'application/json',
-						},
-					},
-				)
+				const { data } = await axios.post('/auth/login', {
+					email: this.email,
+					password: this.password,
+				})
 				this.data = data
 			} catch (e) {
 				console.log(e)
