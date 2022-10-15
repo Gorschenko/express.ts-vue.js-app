@@ -23,6 +23,11 @@ export class App {
     this.PORT = 8000
   }
 
+  useMiddleware() {
+    this.app.use(express.static(path.join(__dirname, '../../client/dist')))
+    this.app.use(express.json())
+  }
+
   useRoutes () {
     this.app.use('/auth', this.userController.router)
   }
@@ -32,8 +37,7 @@ export class App {
   }
 
   public async init() {  
-    this.app.use(express.static(path.join(__dirname, '../../client/dist')))
-    this.app.use(express.json())
+    this.useMiddleware()
     this.useRoutes()
     this.useExeptionFilters()
 
