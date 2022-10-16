@@ -11,12 +11,14 @@ import { UserLoginDto } from "./dto/user-login.dto";
 import { UserRegisterDto } from "./dto/user-register.dto";
 import { IUSerService } from "./user.service.interface";
 import { ValidateMiddleware } from "../common/validate.middleware";
+import { IConfigService } from "../config/config.service.interface";
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
   constructor (
     @inject(TYPES.ILogger) private loggerService: ILogger,
-    @inject(TYPES.UserService) private userService: IUSerService
+    @inject(TYPES.UserService) private userService: IUSerService,
+    @inject(TYPES.ConfigService) private configService: IConfigService
   ) {
     super(loggerService)
     this.bindRoutes([
