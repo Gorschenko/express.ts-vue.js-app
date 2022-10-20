@@ -8,6 +8,7 @@ import 'reflect-metadata'
 import { IExeptionFilter } from './errors/exeption.filters.interface'
 import { IConfigService } from './config/config.service.interface'
 import { UserController } from './user/user.controller'
+import { MongoService } from './database/mongo.service'
 
 @injectable()
 export class App {
@@ -19,7 +20,8 @@ export class App {
     @inject(TYPES.ILogger) private logger: ILogger,
     @inject(TYPES.UserController) private userController: UserController,
     @inject(TYPES.ExeptionFilter) private exeptionFilter: IExeptionFilter,
-    @inject(TYPES.ConfigService) private configService: IConfigService
+    @inject(TYPES.ConfigService) private configService: IConfigService,
+    @inject(TYPES.MongoService) private mongoService: MongoService
   ) {
     this.app = express()
     this.PORT = 8000
@@ -46,7 +48,7 @@ export class App {
     this.app.use((req, res, next) => {
       res.sendFile('index.html')
     })
-
+    await this.mongoService.connect()
     this.server = this.app.listen(this.PORT)
     this.logger.log(`Сервер запущен на http://localhost:${this.PORT}`)
   }

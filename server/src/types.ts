@@ -4,5 +4,7 @@ export const TYPES = {
   UserService: Symbol.for('UserService'),
   ExeptionFilter: Symbol.for('ExeptionFilter'),
   ConfigService: Symbol.for('ConfigService'),
+  MongoService: Symbol.for('MongoService'),
+  UserRepository: Symbol.for('UserRepository'),
   Application: Symbol.for('Application')
 }
