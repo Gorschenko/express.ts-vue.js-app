@@ -1,5 +1,5 @@
 import { User } from "./user.entity";
-import { Document } from "mongoose";
+import UserModel from '../database/models/user.model'
 
 export interface IUserRepository {
   create: (user: User) => Promise<void>

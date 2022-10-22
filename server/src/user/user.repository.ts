@@ -3,7 +3,7 @@ import { MongoService } from "../database/mongo.service";
 import { TYPES } from "../types";
 import { User } from "./user.entity";
 import { IUserRepository } from "./user.repository.interface";
-import UserModel from '../database/models/user'
+import UserModel from '../database/models/user.model'
 
 @injectable()
 export class UserRepository implements IUserRepository {
