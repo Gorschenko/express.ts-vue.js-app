@@ -1,7 +1,5 @@
 import { hash } from "bcryptjs"
-
 export class User {
-
   private _password: string
 
   constructor(

@@ -14,10 +14,14 @@ export class UserService implements IUSerService{
     @inject(TYPES.ConfigService) private configService: IConfigService,
     @inject(TYPES.UserRepository) private userRepository: IUserRepository,
     ) {}
-  async createUser({ email, password, name}: UserRegisterDto): Promise<void> {
+  async createUser({ email, password, name}: UserRegisterDto): Promise<User | null> {
     const newUser = new User(email, name)
     const salt = this.configService.get('SALT')
     await newUser.setPassword(password, Number(salt))
+    const existedUser = await this.userRepository.find(email)
+    if (existedUser) {
+      return null
+    }
     return this.userRepository.create(newUser)
   }
 

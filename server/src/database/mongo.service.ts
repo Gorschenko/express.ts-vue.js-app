@@ -7,6 +7,7 @@ import { TYPES } from "../types";
 @injectable()
 export class MongoService {
   client
+
   constructor (
     @inject(TYPES.ILogger) private logger: ILogger,
     @inject(TYPES.ConfigService) private configService: IConfigService,
@@ -16,7 +17,7 @@ export class MongoService {
 
   async connect() {
     try {
-      await mongoose.connect('mongodb+srv://Gorschenko:uf7tBtVud0ef30Gk@cluster0.ynpkt15.mongodb.net/shop_two')
+      await this.client.connect('mongodb+srv://Gorschenko:uf7tBtVud0ef30Gk@cluster0.ynpkt15.mongodb.net/shop_two')
       this.logger.log('[MongoService] Успешно подключились к базе данных')
     } catch (e) {
       if (e instanceof Error) {
@@ -26,6 +27,6 @@ export class MongoService {
   }
 
   async disconnect () {
-    await mongoose.disconnect()
+    await this.client.disconnect()
   }
 }

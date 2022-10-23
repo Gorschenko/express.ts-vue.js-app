@@ -10,15 +10,15 @@ export class UserRepository implements IUserRepository {
   constructor (@inject(TYPES.MongoService) private mongoService: MongoService) {
 
   }
-  async create (user: User): Promise<void> {
+  async create (user: User): Promise<User> {
     const newUser = new UserModel({
       email: user.email,
       password: user.password,
       name: user.name,
     })
-    await newUser.save()
+    return await newUser.save()
   }
-  async find (email: string): Promise<void | null> {
-
+  async find (email: string): Promise<User | null> {
+    return await UserModel.findOne({ email })
   }
 }
