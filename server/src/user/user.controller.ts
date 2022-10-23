@@ -12,6 +12,7 @@ import { UserRegisterDto } from "./dto/user-register.dto";
 import { IUSerService } from "./user.service.interface";
 import { ValidateMiddleware } from "../common/validate.middleware";
 import { IConfigService } from "../config/config.service.interface";
+import { sign } from 'jsonwebtoken'
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -33,6 +34,12 @@ export class UserController extends BaseController implements IUserController {
         method: 'post',
         func: this.register,
         middlewares: [new ValidateMiddleware(UserRegisterDto)]
+      },
+      {
+        path: '/info',
+        method: 'get',
+        func: this.info,
+        middlewares: []
       }
     ])
   }
@@ -42,9 +49,25 @@ export class UserController extends BaseController implements IUserController {
     if (!result) {
       return next(new HTTPError(401, 'Ошибка авторизации', 'login'))
     }
-    this.ok(res, {})
+    const jwt = await this.signJWT(req.body.email, this.configService.get('SECRET'))
+    this.ok(res, { jwt })
   }
 
+  private signJWT(email: string, secret: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      sign(
+        {
+          email,
+          iat: Math.floor(Date.now() / 1000),
+        },
+        secret,
+        {
+          algorithm: 'HS256',
+        },
+        (err, token) => err ? reject(err) : resolve(token as string)
+      );
+    })
+  }
 
   async register(req: Request<{}, {}, UserRegisterDto>, res: Response, next: NextFunction): Promise<void> {
     const result = await this.userService.createUser(req.body)
@@ -52,5 +75,9 @@ export class UserController extends BaseController implements IUserController {
       return next(new HTTPError(422, 'Такой пользователь уже существует', 'register'))
     }
     this.ok(res, { result })
+  }
+
+  async info(req: Request, res: Response, next: NextFunction): Promise<void> {
+    this.ok(res, req.user)
   }
 }

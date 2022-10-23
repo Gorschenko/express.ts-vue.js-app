@@ -1,12 +1,12 @@
 import { inject, injectable } from "inversify";
-import mongoose from 'mongoose'
+import mongoose, { Mongoose } from 'mongoose'
 import { IConfigService } from "../config/config.service.interface";
 import { ILogger } from "../logger/logger.interface";
 import { TYPES } from "../types";
 
 @injectable()
 export class MongoService {
-  client
+  client: Mongoose
 
   constructor (
     @inject(TYPES.ILogger) private logger: ILogger,
@@ -17,7 +17,7 @@ export class MongoService {
 
   async connect() {
     try {
-      await this.client.connect('mongodb+srv://Gorschenko:uf7tBtVud0ef30Gk@cluster0.ynpkt15.mongodb.net/shop_two')
+      await this.client.connect(this.configService.get('MONGODB_URI'))
       this.logger.log('[MongoService] Успешно подключились к базе данных')
     } catch (e) {
       if (e instanceof Error) {

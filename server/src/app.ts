@@ -9,6 +9,7 @@ import { IExeptionFilter } from './errors/exeption.filters.interface'
 import { IConfigService } from './config/config.service.interface'
 import { UserController } from './user/user.controller'
 import { MongoService } from './database/mongo.service'
+import { AuthMiddleware } from './common/auth.middleware'
 
 @injectable()
 export class App {
@@ -30,6 +31,8 @@ export class App {
   useMiddleware() {
     this.app.use(express.static(path.join(__dirname, '../../client/dist')))
     this.app.use(express.json())
+    const authMiddleware = new AuthMiddleware(this.configService.get('SECRET'))
+    this.app.use(authMiddleware.execute.bind(authMiddleware))
   }
 
   useRoutes () {
