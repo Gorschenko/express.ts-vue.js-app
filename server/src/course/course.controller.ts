@@ -1,9 +1,9 @@
+import { Response, Request, NextFunction } from 'express'
 import { inject, injectable } from "inversify";
 import { BaseController } from "../common/base.controller";
 import { ILogger } from "../logger/logger.interface";
 import { TYPES } from "../types";
 import { ICourseController } from "./course.controller.interface";
-
 
 @injectable()
 export class CourseController extends BaseController implements ICourseController {
@@ -26,12 +26,10 @@ export class CourseController extends BaseController implements ICourseControlle
       }
     ])
   }
-  async fetch(): Promise<void> {
-    console.log('working 1')
+  async fetch(req: Request, res: Response, next: NextFunction): Promise<void> {
     return
   }
-  async add (): Promise<boolean> {
-    console.log('working 2')
+  async add (req: Request, res: Response, next: NextFunction): Promise<boolean> {
     return true
   }
 }
