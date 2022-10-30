@@ -10,6 +10,7 @@ import { IConfigService } from './config/config.service.interface'
 import { UserController } from './user/user.controller'
 import { MongoService } from './database/mongo.service'
 import { AuthMiddleware } from './common/auth.middleware'
+import { CourseController } from './course/course.controller'
 
 @injectable()
 export class App {
@@ -20,6 +21,7 @@ export class App {
   constructor(
     @inject(TYPES.ILogger) private logger: ILogger,
     @inject(TYPES.UserController) private userController: UserController,
+    @inject(TYPES.CourseController) private courseController: CourseController,
     @inject(TYPES.ExeptionFilter) private exeptionFilter: IExeptionFilter,
     @inject(TYPES.ConfigService) private configService: IConfigService,
     @inject(TYPES.MongoService) private mongoService: MongoService
@@ -37,6 +39,7 @@ export class App {
 
   useRoutes () {
     this.app.use('/auth', this.userController.router)
+    this.app.use('/course', this.courseController.router)
   }
 
   useExeptionFilters() {
