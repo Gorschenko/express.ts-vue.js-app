@@ -5,4 +5,5 @@ import { User } from "./user.entity";
 export interface IUSerService {
   createUser: (dto: UserRegisterDto) => Promise<User | null>
   validateUser: (dto: UserLoginDto) => Promise<boolean>
+  getUserInfo: (email: string) => Promise<User | null>
 }
