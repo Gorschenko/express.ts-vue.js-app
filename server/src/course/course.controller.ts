@@ -5,7 +5,6 @@ import { ValidateMiddleware } from '../common/validate.middleware'
 import { ILogger } from '../logger/logger.interface'
 import { TYPES } from '../types'
 import { ICourseController } from './course.controller.interface'
-import { Course } from './course.entity'
 import { ICourseService } from './course.service.interface'
 import { CourseCreateDto } from './dto/course-create.dto'
 
@@ -29,11 +28,19 @@ export class CourseController extends BaseController implements ICourseControlle
         func: this.create,
         middlewares: [new ValidateMiddleware(CourseCreateDto)],
       },
+      {
+        path: '/:_id',
+        method: 'delete',
+        func: this.delete,
+        middlewares: [],
+      },
     ])
   }
-  async fetch(req: Request, res: Response, next: NextFunction): Promise<Course[] | null> {
-    return null
+  async fetch(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const result = await this.courseService.fetch()
+    this.ok(res, { result })
   }
+
   async create(
     req: Request<{}, {}, CourseCreateDto>,
     res: Response,
@@ -41,6 +48,10 @@ export class CourseController extends BaseController implements ICourseControlle
   ): Promise<void> {
     const result = await this.courseService.create(req.body)
     this.ok(res, { result })
-    return
+  }
+
+  async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const result = await this.courseService.delete(req.params._id)
+    this.ok(res, { result })
   }
 }

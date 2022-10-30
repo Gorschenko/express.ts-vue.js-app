@@ -15,4 +15,10 @@ export class CourseRepository implements ICourseRepository {
     const newCourse = new CourseModel({ ...course })
     return await newCourse.save()
   }
+  async fetch(): Promise<Course[] | null> {
+    return await CourseModel.find()
+  }
+  async find(_id: string): Promise<Course | null> {
+    return await CourseModel.findById(_id)
+  }
 }
