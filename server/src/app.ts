@@ -14,48 +14,48 @@ import { CourseController } from './course/course.controller'
 
 @injectable()
 export class App {
-  app: Express
-  PORT: number
-  server: Server
+	app: Express
+	PORT: number
+	server: Server
 
-  constructor(
-    @inject(TYPES.ILogger) private logger: ILogger,
-    @inject(TYPES.UserController) private userController: UserController,
-    @inject(TYPES.CourseController) private courseController: CourseController,
-    @inject(TYPES.ExeptionFilter) private exeptionFilter: IExeptionFilter,
-    @inject(TYPES.ConfigService) private configService: IConfigService,
-    @inject(TYPES.MongoService) private mongoService: MongoService
-  ) {
-    this.app = express()
-    this.PORT = 8000
-  }
+	constructor(
+		@inject(TYPES.ILogger) private logger: ILogger,
+		@inject(TYPES.UserController) private userController: UserController,
+		@inject(TYPES.CourseController) private courseController: CourseController,
+		@inject(TYPES.ExeptionFilter) private exeptionFilter: IExeptionFilter,
+		@inject(TYPES.ConfigService) private configService: IConfigService,
+		@inject(TYPES.MongoService) private mongoService: MongoService,
+	) {
+		this.app = express()
+		this.PORT = 8000
+	}
 
-  useMiddleware() {
-    this.app.use(express.static(path.join(__dirname, '../../client/dist')))
-    this.app.use(express.json())
-    const authMiddleware = new AuthMiddleware(this.configService.get('SECRET'))
-    this.app.use(authMiddleware.execute.bind(authMiddleware))
-  }
+	useMiddleware(): void {
+		this.app.use(express.static(path.join(__dirname, '../../client/dist')))
+		this.app.use(express.json())
+		const authMiddleware = new AuthMiddleware(this.configService.get('SECRET'))
+		this.app.use(authMiddleware.execute.bind(authMiddleware))
+	}
 
-  useRoutes () {
-    this.app.use('/auth', this.userController.router)
-    this.app.use('/course', this.courseController.router)
-  }
+	useRoutes(): void {
+		this.app.use('/auth', this.userController.router)
+		this.app.use('/course', this.courseController.router)
+	}
 
-  useExeptionFilters() {
-    this.app.use(this.exeptionFilter.catch.bind(this.exeptionFilter))
-  }
+	useExeptionFilters(): void {
+		this.app.use(this.exeptionFilter.catch.bind(this.exeptionFilter))
+	}
 
-  public async init() {  
-    this.useMiddleware()
-    this.useRoutes()
-    this.useExeptionFilters()
+	public async init(): Promise<void> {
+		this.useMiddleware()
+		this.useRoutes()
+		this.useExeptionFilters()
 
-    this.app.use((req, res, next) => {
-      res.sendFile('index.html')
-    })
-    await this.mongoService.connect()
-    this.server = this.app.listen(this.PORT)
-    this.logger.log(`Сервер запущен на http://localhost:${this.PORT}`)
-  }
+		this.app.use((req, res, next) => {
+			res.sendFile('index.html')
+		})
+		await this.mongoService.connect()
+		this.server = this.app.listen(this.PORT)
+		this.logger.log(`Сервер запущен на http://localhost:${this.PORT}`)
+	}
 }
