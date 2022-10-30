@@ -23,7 +23,7 @@
 			"error",
 			{
 				"singleQuote": true,
-				"useTabs": true,
+				"useTabs": false,
 				"semi": false,
 				"trailingComma": "all",
 				"bracketSpacing": true,

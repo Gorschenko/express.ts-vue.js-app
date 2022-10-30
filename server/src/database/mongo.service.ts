@@ -6,27 +6,27 @@ import { TYPES } from '../types'
 
 @injectable()
 export class MongoService {
-	client: Mongoose
+  client: Mongoose
 
-	constructor(
-		@inject(TYPES.ILogger) private logger: ILogger,
-		@inject(TYPES.ConfigService) private configService: IConfigService,
-	) {
-		this.client = mongoose
-	}
+  constructor(
+    @inject(TYPES.ILogger) private logger: ILogger,
+    @inject(TYPES.ConfigService) private configService: IConfigService,
+  ) {
+    this.client = mongoose
+  }
 
-	async connect(): Promise<void> {
-		try {
-			await this.client.connect(this.configService.get('MONGODB_URI'))
-			this.logger.log('[MongoService] Успешно подключились к базе данных')
-		} catch (e) {
-			if (e instanceof Error) {
-				this.logger.log('[MongoService] Ошибка подключения к базе данных: ' + e.message)
-			}
-		}
-	}
+  async connect(): Promise<void> {
+    try {
+      await this.client.connect(this.configService.get('MONGODB_URI'))
+      this.logger.log('[MongoService] Успешно подключились к базе данных')
+    } catch (e) {
+      if (e instanceof Error) {
+        this.logger.log('[MongoService] Ошибка подключения к базе данных: ' + e.message)
+      }
+    }
+  }
 
-	async disconnect(): Promise<void> {
-		await this.client.disconnect()
-	}
+  async disconnect(): Promise<void> {
+    await this.client.disconnect()
+  }
 }
