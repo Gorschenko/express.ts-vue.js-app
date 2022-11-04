@@ -7,6 +7,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import LayoutBase from '@/layouts/LayoutBase'
+import 'boxicons'
 
 export default {
   name: 'App',
@@ -16,7 +17,6 @@ export default {
   setup () {
     const route = useRoute();
     const layout = computed(() => 'layout-' + route.meta.layout)
-    console.log(layout)
     return {
       layout,
     };
@@ -25,6 +25,7 @@ export default {
 </script>
 <style lang="scss">
 * {
+  @include text_size_m;
   padding: 0;
   margin: 0;
   background: 0;
@@ -33,7 +34,7 @@ export default {
   list-style: none;
   text-decoration: none;
   font-family: 'Inter', sans-serif;
-  font-size: 16px;
   box-sizing: border-box;
 }
+
 </style>
