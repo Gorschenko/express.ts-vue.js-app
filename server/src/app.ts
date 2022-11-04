@@ -31,7 +31,7 @@ export class App {
   }
 
   useMiddleware(): void {
-    // this.app.use(express.static(path.join(__dirname, '../../client/dist')))
+    this.app.use(express.static(path.join(__dirname, '../../client/dist')))
     this.app.use(express.json())
     const authMiddleware = new AuthMiddleware(this.configService.get('SECRET'))
     this.app.use(authMiddleware.execute.bind(authMiddleware))
@@ -51,9 +51,9 @@ export class App {
     this.useRoutes()
     this.useExeptionFilters()
 
-    // this.app.use((req, res, next) => {
-    //   res.sendFile('index.html')
-    // })
+    this.app.get('/', (req, res, next) => {
+      res.sendFile(path + 'index.html')
+    })
     await this.mongoService.connect()
     this.server = this.app.listen(this.PORT)
     this.logger.log(`Сервер запущен на http://localhost:${this.PORT}`)

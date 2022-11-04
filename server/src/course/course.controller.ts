@@ -29,7 +29,7 @@ export class CourseController extends BaseController implements ICourseControlle
         middlewares: [new ValidateMiddleware(CourseCreateDto)],
       },
       {
-        path: '/:_id',
+        path: '/:id',
         method: 'delete',
         func: this.delete,
         middlewares: [],
@@ -51,7 +51,7 @@ export class CourseController extends BaseController implements ICourseControlle
   }
 
   async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const result = await this.courseService.delete(req.params._id)
+    const result = await this.courseService.delete(req.params.id)
     this.ok(res, { result })
   }
 }

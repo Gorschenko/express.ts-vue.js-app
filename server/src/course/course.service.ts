@@ -18,9 +18,8 @@ export class CourseService implements ICourseService {
   async fetch(): Promise<Course[] | null> {
     return await this.courseRepository.fetch()
   }
-  async delete(_id: string): Promise<Course | null> {
-    console.log(_id)
-    const course = await this.courseRepository.find(_id)
+  async delete(id: string): Promise<Course | null> {
+    const course = await this.courseRepository.find(id)
     console.log(course)
     return course
   }
