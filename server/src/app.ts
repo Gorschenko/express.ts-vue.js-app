@@ -52,7 +52,7 @@ export class App {
     this.useExeptionFilters()
 
     this.app.get('/', (req, res, next) => {
-      res.sendFile(path + 'index.html')
+      res.sendFile('index.html')
     })
     await this.mongoService.connect()
     this.server = this.app.listen(this.PORT)
