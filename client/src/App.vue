@@ -23,27 +23,3 @@ export default {
   },
 }
 </script>
-<style lang="scss">
-* {
-  @include text_size_m;
-  padding: 0;
-  margin: 0;
-  background: 0;
-  border: 0;
-  outline: 0;
-  list-style: none;
-  text-decoration: none;
-  font-family: 'Inter', sans-serif;
-  box-sizing: border-box;
-}
-
-body {
-  width: 100vw;
-  height: 100vh;
-}
-
-#app {
-  @include parent-size;
-}
-
-</style>

@@ -61,6 +61,7 @@ export default {
 
   i {
     font-size: 24px;
+    color: inherit;
   }
 
   // sizes
@@ -69,6 +70,7 @@ export default {
     padding: 12px 24px;
     span {
       @include text_size_m;
+      color: inherit;
     }
   }
 
@@ -77,6 +79,7 @@ export default {
     padding: 8px 16px;
     span {
       @include text_size_s;
+      color: inherit;
     }
   }
 
@@ -84,7 +87,8 @@ export default {
     gap: 4px;
     padding: 6px 12px;
     span {
-      @include text_size_xs
+      @include text_size_xs;
+      color: inherit;
     }
   }
 

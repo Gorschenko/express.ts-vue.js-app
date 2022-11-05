@@ -4,7 +4,9 @@
       title="Some text"
       icon="bxs-graduation"
     />
-    <DefaultInput />
+    <DefaultInput
+      icon="bx-search"
+    />
   </section>
 </template>
 <script>

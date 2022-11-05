@@ -1,0 +1,17 @@
+.color {
+  &_primary {
+    color: $cl-primary;
+  }
+
+  &_neutral {
+    color: $cl-neutral;
+  }
+
+  &_danger {
+    color: $cl-danger;
+  }
+
+  &_inherit {
+    color: inherit;
+  }
+}
