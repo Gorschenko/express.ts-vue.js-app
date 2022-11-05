@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomePage from '@/views/HomePage'
 
 const meta = {
-  layout: 'base',
+  layout: 'default',
 }
 
 const routes = [

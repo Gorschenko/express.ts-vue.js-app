@@ -2,6 +2,7 @@
   <section>
     <DefaultButton
       title="Some text"
+      icon="bxs-graduation"
     />
     <DefaultInput />
   </section>

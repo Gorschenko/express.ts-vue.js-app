@@ -29,7 +29,7 @@ export default {
     },
     color: {
       type: String,
-      default: 'primary',
+      default: 'neutral',
     },
     form: {
       type: String,
@@ -90,38 +90,30 @@ export default {
 
   // colors
   &_primary {
-    color: white;
+    color: $cl-neutral;
     background: $cl-primary;
 
     &:hover {
-      opacity: 0.8
+      background: $cl-primary-dark;
     }
   }
 
   &_neutral {
-    color: white;
-    background: $cl-neutral-100;
+    color: $cl-primary;
+    background: $cl-neutral;
 
     &:hover {
-      background: $cl-neutral-200;
-    }
-  }
-
-  &_success {
-    color: $cl-success;
-    background: $cl-success-bg;
-
-    &:hover {
-      background: $cl-success-hover;
+      background: $cl-primary-light;
     }
   }
 
   &_danger {
-    color: $cl-danger;
-    background: $cl-danger-bg;
+    color: $cl-neutral;
+    background: $cl-danger;
+    opacity: $btn-opacity;
 
     &:hover {
-      background: $cl-danger-hover;
+      opacity: 1;
     }
   }
 

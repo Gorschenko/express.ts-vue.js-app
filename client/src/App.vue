@@ -6,13 +6,13 @@
 <script>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import LayoutBase from '@/layouts/LayoutBase'
-import 'boxicons'
+import LayoutDefault from '@/layouts/LayoutDefault'
+// import 'boxicons'
 
 export default {
   name: 'App',
   components: {
-    LayoutBase,
+    LayoutDefault,
   },
   setup () {
     const route = useRoute();
@@ -35,6 +35,15 @@ export default {
   text-decoration: none;
   font-family: 'Inter', sans-serif;
   box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+#app {
+  @include parent-size;
 }
 
 </style>
