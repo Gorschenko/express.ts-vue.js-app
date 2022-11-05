@@ -2,23 +2,23 @@
   display: block;
 
   &_xl {
-    @include text_size_xl;
+    @include text_xl;
   }
 
   &_l {
-    @include text_size_l;
+    @include text_l;
   }
 
   &_m {
-    @include text_size_m;
+    @include text_m;
   }
 
   &_s {
-    @include text_size_s;
+    @include text_s;
   }
 
   &_xs {
-    @include text_size_xs;
+    @include text_xs;
   }
 
   &_center {

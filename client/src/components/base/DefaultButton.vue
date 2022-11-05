@@ -69,7 +69,7 @@ export default {
     gap: 8px;
     padding: 12px 24px;
     span {
-      @include text_size_m;
+      @include text_m;
       color: inherit;
     }
   }
@@ -78,7 +78,7 @@ export default {
     gap: 8px;
     padding: 8px 16px;
     span {
-      @include text_size_s;
+      @include text_s;
       color: inherit;
     }
   }
@@ -87,7 +87,7 @@ export default {
     gap: 4px;
     padding: 6px 12px;
     span {
-      @include text_size_xs;
+      @include text_xs;
       color: inherit;
     }
   }
