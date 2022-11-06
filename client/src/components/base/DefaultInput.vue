@@ -1,5 +1,4 @@
 <template>
-<div>
   <div
     :class="[
       'default-input__wrapper_' + wrapperType,
@@ -14,37 +13,38 @@
     >
       {{ label }}
     </label>
-    <div
-      :class="[
-        'default-input',
-        'default-input_' + size,
-        inputClasses,
-      ]"
-    >
-      <i
-        v-if="icon"
-        :class="['bx', icon]"
-      />
-      <input
-        :id="id"
-        :name="id"
-        :placeholder="placeholder"
-        :type="type"
+    <div :class="inputClasses">
+      <div
         :class="[
-          'default-input__field',
-          'text_' + size,
+          'default-input',
+          'default-input_' + size,
         ]"
-        :value="inputValue"
-        @input="handleChange"
-        @blur="handleBlur"
       >
+        <i
+          v-if="icon"
+          :class="['bx', icon]"
+        />
+        <input
+          :id="id"
+          :name="id"
+          :placeholder="placeholder"
+          :type="type"
+          :class="[
+            'text_' + size,
+          ]"
+          :value="inputValue"
+          @input="handleChange"
+          @blur="handleBlur"
+        >
+      </div>
+      <p
+        v-show="errorMessage"
+        class="text_xs color_danger"
+      >
+        {{ errorMessage }}
+      </p>
     </div>
   </div>
-  <p v-show="errorMessage">
-    {{ errorMessage }}
-  </p>
-</div>
-
 </template>
 <script>
 import { toRef } from 'vue';

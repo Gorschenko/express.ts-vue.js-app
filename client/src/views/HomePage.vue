@@ -6,24 +6,43 @@
       icon="bxs-graduation"
     />
     <Form
-      @submit="submit"
+      class="mb-16"
       :validation-schema="schema"
+      @submit="submit"
+      
     >
       <DefaultInput
         input-classes="home-page__input"
-        wrapper-type="row"
+    
         icon="bx-search"
         id="email"
-        placeholder="Hey"
-        label="Some label"
       />
       <button type="submit">Submit</button>
     </Form>
+    <DefaultDropdown class="mb-16">
+      <template #default>
+        <DefaultButton
+          title="Dropdown"
+        />
+      </template>
+      <template #body>
+        <li
+          v-for="(item, i) in 3"
+          :key="i"
+        >
+          {{ i + 1 }} Some text
+        </li>
+      </template>
+    </DefaultDropdown>
+    <DefaultButton
+      title="Button"
+    />
   </section>
 </template>
 <script>
 import DefaultButton from '@/components/base/DefaultButton'
 import DefaultInput from '@/components/base/DefaultInput'
+import DefaultDropdown from '@/components/base/DefaultDropdown'
 import { Form } from 'vee-validate';
 import * as Yup from 'yup';
 
@@ -32,6 +51,7 @@ export default {
   components: {
     DefaultButton,
     DefaultInput,
+    DefaultDropdown,
     Form
   },
   setup () {

@@ -1,6 +1,14 @@
 .color {
   &_primary {
     color: $cl-primary;
+  
+    &_light {
+      color: $cl-primary-light;
+    }
+
+    &_dark {
+      color: $cl-primary-dark;
+    }
   }
 
   &_neutral {
@@ -13,5 +21,54 @@
 
   &_inherit {
     color: inherit;
+  }
+
+  &_hovered {
+    &_primary:hover {
+      color: $cl-primary;
+    
+      &_light:hover {
+        color: $cl-primary-light;
+      }
+
+        &_dark:hover {
+        color: $cl-primary-dark;
+      }
+    }
+
+      &_neutral:hover {
+      color: $cl-neutral;
+    }
+
+      &_danger:hover {
+      color: $cl-danger;
+    }
+
+      &_inherit:hover {
+      color: inherit;
+    }
+  }
+}
+
+
+.background {
+  &_primary {
+    background: $cl-primary;
+  
+    &_light {
+      background: $cl-primary-light;
+    }
+
+    &_dark {
+      background: $cl-primary-dark;
+    }
+  }
+
+  &_neutral {
+    background: $cl-neutral;
+  }
+
+  &_danger {
+    background: $cl-danger;
   }
 }

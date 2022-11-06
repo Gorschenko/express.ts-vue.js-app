@@ -2,12 +2,13 @@
   &-y-scroll {
     overflow-y: scroll;
   }
-  &-y-auto {
-    overflow-y: auto;
-  }
   &-hidden {
     overflow: hidden;
   }
+}
+
+.relative {
+  position: relative;
 }
 
 .flex {
@@ -54,11 +55,11 @@
   margin: 0 auto;
 }
 
-.margin-left-auto {
+.margin-right {
   margin-left: auto;
 }
 
-.margin-right-auto {
+.margin-left {
   margin-right: auto;
 }
 
