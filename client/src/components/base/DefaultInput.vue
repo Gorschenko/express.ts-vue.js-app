@@ -111,7 +111,7 @@ export default {
 .default-input {
   @include flex-row;
   gap: 4px;
-  border: $border;
+  border: $border-solid;
   border-radius: $br-secondary;
   background: $cl-primary-light;
 

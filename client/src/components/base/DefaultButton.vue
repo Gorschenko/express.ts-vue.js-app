@@ -1,6 +1,7 @@
 <template>
   <button
     :class="classes"
+    @click="$emit('action', $event)"
   >
     <span>{{ title }}</span>
     <i
@@ -14,6 +15,7 @@ import { computed } from 'vue'
 
 export default {
   name: 'DefaultButton',
+  emits: ['action'],
   props: {
     title: {
       type: String,
@@ -29,7 +31,7 @@ export default {
     },
     color: {
       type: String,
-      default: 'neutral',
+      default: 'primary',
     },
     form: {
       type: String,

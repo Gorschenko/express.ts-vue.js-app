@@ -7,7 +7,6 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import LayoutDefault from '@/layouts/LayoutDefault'
-// import 'boxicons'
 
 export default {
   name: 'App',

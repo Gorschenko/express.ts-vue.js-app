@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomePage from '@/views/HomePage'
+import MainPage from '@/views/MainPage'
 
 const meta = {
   layout: 'default',
@@ -8,8 +8,8 @@ const meta = {
 const routes = [
   {
     path: '/',
-    name: 'home-page',
-    component: HomePage,
+    name: 'main-page',
+    component: MainPage,
     meta,
   },
 ]
