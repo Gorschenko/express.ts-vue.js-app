@@ -24,28 +24,27 @@
   }
 
   &_hovered {
+    transition: $tr-primary;
+    
     &_primary:hover {
       color: $cl-primary;
-    
+    }
+    &_primary {
       &_light:hover {
         color: $cl-primary-light;
       }
 
-        &_dark:hover {
+      &_dark:hover {
         color: $cl-primary-dark;
       }
     }
 
-      &_neutral:hover {
+    &_neutral:hover {
       color: $cl-neutral;
     }
 
-      &_danger:hover {
+    &_danger:hover {
       color: $cl-danger;
-    }
-
-      &_inherit:hover {
-      color: inherit;
     }
   }
 }

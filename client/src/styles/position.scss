@@ -47,6 +47,10 @@
   gap: 16px;
 }
 
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
 .parent-size {
   @include parent-size;
 }

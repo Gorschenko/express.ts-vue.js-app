@@ -2,9 +2,9 @@
   @include parent-size;
   display: grid;
   grid-template-areas:
-  'header header'
-  'aside main';
-  grid-template-columns: #{$aside-width} 1fr;
+  'header'
+  'main';
+  grid-template-columns: 1fr;
   grid-template-rows: #{$header-height} 1fr;
   background: $cl-primary-light;
 
@@ -13,19 +13,8 @@
     border-bottom: $border-solid;
   }
 
-  &__aside {
-    grid-area: aside;
-    border-right: $border-solid;
-  }
-
   &__main {
     grid-area: main; 
-  }
-}
-
-.default-header {
-  &__logo {
-    width: calc(#{$aside-width} - 8px);
   }
 }
 

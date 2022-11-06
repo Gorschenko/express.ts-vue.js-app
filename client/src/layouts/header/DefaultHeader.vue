@@ -1,9 +1,7 @@
 <template>
-  <header class="p-8 flex-row-between">
-    <div class="flex-row">
-      <HeaderLogo class="default-header__logo"/>
-      <HeaderNavigation />
-    </div>
+  <header class="p-8 flex-row flex-gap-16">
+    <HeaderLogo />
+    <HeaderNavigation class="flex-grow-1" />
   </header>
 </template>
 <script>
