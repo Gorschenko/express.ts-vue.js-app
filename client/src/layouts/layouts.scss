@@ -1,0 +1,40 @@
+.layout-default {
+  @include parent-size;
+  display: grid;
+  grid-template-areas:
+  'header header'
+  'aside main';
+  grid-template-columns: #{$aside-width} 1fr;
+  grid-template-rows: #{$header-height} 1fr;
+  background: $cl-primary-light;
+
+  &__header {
+    grid-area: header;
+    border-bottom: $border-solid;
+  }
+
+  &__aside {
+    grid-area: aside;
+    border-right: $border-solid;
+  }
+
+  &__main {
+    grid-area: main; 
+  }
+}
+
+.default-header {
+  &__logo {
+    width: calc(#{$aside-width} - 8px);
+  }
+}
+
+.header-logo {
+  &__icon {
+    font-size: 48px;
+  }
+
+  &__title {
+    font-size: 32px;
+  }
+}
