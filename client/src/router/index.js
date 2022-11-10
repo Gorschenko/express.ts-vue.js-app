@@ -22,6 +22,17 @@ const router = createRouter({
   routes
 })
 
+const pipeline = (context, middleware, index) => {
+  const nextMiddleware = middleware[index]
+  if (!nextMiddleware) {
+    return context.next
+  }
+  return () => {
+    const nextPipeline = pipeline(context, middleware, index + 1)
+    nextMiddleware({ ...context, nextMiddleware: nextPipeline })
+  }
+}
+
 router.beforeEach((to, from, next) => {
   if (!to.meta.middleware) {
     return next()
@@ -32,17 +43,6 @@ router.beforeEach((to, from, next) => {
     from,
     next,
     store,
-  }
-
-  const pipeline = (context, middleware, index) => {
-    const nextMiddleware = middleware[index]
-    if (!nextMiddleware) {
-      return context.next
-    }
-    return () => {
-      const nextPipeline = pipeline(context, middleware, index + 1)
-      nextMiddleware({ ...context, nextMiddleware: nextPipeline })
-    }
   }
 
   return middleware[0] ({
