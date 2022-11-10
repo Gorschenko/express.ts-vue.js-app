@@ -36,6 +36,9 @@ const authList = [
   {
     name: 'Войти', value: 'sign-in',
   },
+  {
+    name: 'Регистрация', value: 'sign-up',
+  },
 ]
 const mainList = [
   // {

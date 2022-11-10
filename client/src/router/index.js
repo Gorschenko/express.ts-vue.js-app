@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import MainPage from '@/views/MainPage'
-import auth from '@/router/modules/auth'
+import auth from '@/router/modules/auth.module'
+import store from '@/store/index'
 
 const meta = {
   layout: 'default',
@@ -19,6 +20,35 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (!to.meta.middleware) {
+    return next()
+  }
+  const middleware = to.meta.middleware
+  const context = {
+    to,
+    from,
+    next,
+    store,
+  }
+
+  const pipeline = (context, middleware, index) => {
+    const nextMiddleware = middleware[index]
+    if (!nextMiddleware) {
+      return context.next
+    }
+    return () => {
+      const nextPipeline = pipeline(context, middleware, index + 1)
+      nextMiddleware({ ...context, nextMiddleware: nextPipeline })
+    }
+  }
+
+  return middleware[0] ({
+    ...context,
+    nextMiddleware: pipeline(context, middleware, 1)
+  })
 })
 
 export default router
