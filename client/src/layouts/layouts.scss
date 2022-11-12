@@ -1,12 +1,12 @@
 .layout-default {
-  @include parent-size;
+  max-width: 1400px;
+  margin: 0 auto;
   display: grid;
   grid-template-areas:
   'header'
   'main';
   grid-template-columns: 1fr;
   grid-template-rows: #{$header-height} 1fr;
-  background: $cl-primary-light;
 
   &__header {
     grid-area: header;

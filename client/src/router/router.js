@@ -1,7 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import MainPage from '@/views/MainPage'
-import auth from '@/router/modules/auth.module'
-import store from '@/store/index'
+import ProfilePage from '@/views/ProfilePage'
+import CardPage from '@/views/CardPage'
+import FavoritePage from '@/views/FavoritePage'
+import CatalogPage from '@/views/CatalogPage'
+import OffersPage from '@/views/OffersPage'
+
+import auth from '@/router/modules/auth.router'
+import store from '@/store/store'
 
 const meta = {
   layout: 'default',
@@ -11,8 +17,38 @@ const routes = [
   ...auth,
   {
     path: '/',
-    name: 'main-page',
+    name: 'main',
     component: MainPage,
+    meta,
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfilePage,
+    meta,
+  },
+  {
+    path: '/card',
+    name: 'card',
+    component: CardPage,
+    meta,
+  },
+  {
+    path: '/favorite',
+    name: 'favorite',
+    component: FavoritePage,
+    meta,
+  },
+  {
+    path: '/catalog',
+    name: 'catalog',
+    component: CatalogPage,
+    meta,
+  },
+  {
+    path: '/offers',
+    name: 'offers',
+    component: OffersPage,
     meta,
   },
 ]

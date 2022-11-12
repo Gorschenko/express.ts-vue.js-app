@@ -1,6 +1,9 @@
 <template>
-  <header class="p-8 flex-row flex-gap-16">
-    <HeaderLogo />
+  <header class="flex-row flex-gap-16">
+    <HeaderLogo
+      class="cursor-pointer"
+      @click="$router.push('/')"
+    />
     <HeaderNavigation class="flex-grow-1" />
   </header>
 </template>

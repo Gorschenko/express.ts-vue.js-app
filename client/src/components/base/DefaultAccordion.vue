@@ -110,7 +110,6 @@
         ]
       )
       const changeHeight = () => {
-        
         isShown.value
           ? body.value.style.height = body.value.scrollHeight + 'px'
           : body.value.style.height = 0 + 'px';

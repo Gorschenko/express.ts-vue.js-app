@@ -1,5 +1,5 @@
 // * {
-//   @include text_m;
+//   
 //   padding: 0;
 //   margin: 0;
 //   background: 0;
@@ -7,14 +7,33 @@
 //   outline: 0;
 //   list-style: none;
 //   text-decoration: none;
-//   font-family: 'Inter', sans-serif;
+//   
 //   box-sizing: border-box;
 //   color: black;
 // }
 
 body {
+  @include text_m;
+  font-family: 'Inter', sans-serif;
   width: 100vw;
   height: 100vh;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  background: none;
+  outline: 0;
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
 }
 
 #app {
