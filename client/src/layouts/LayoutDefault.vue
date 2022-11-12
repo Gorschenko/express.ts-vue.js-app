@@ -2,7 +2,7 @@
 <div class="layout-default">
   <DefaultHeader class="layout-default__header"/>
   <main class="layout-default__main">
-    <router-view />
+    <router-view class="parent-size" />
   </main>
 </div>
 </template>

@@ -11,12 +11,23 @@
 //   box-sizing: border-box;
 //   color: black;
 // }
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  @include parent-size;
+}
 
 body {
   @include text_m;
   font-family: 'Inter', sans-serif;
   width: 100vw;
   height: 100vh;
+}
+
+ul {
+  list-style: none;
 }
 
 button {
@@ -32,10 +43,6 @@ a {
   cursor: pointer;
 }
 
-ul {
-  list-style: none;
-}
-
-#app {
-  @include parent-size;
+p {
+  margin: 0;
 }

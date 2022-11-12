@@ -1,0 +1,14 @@
+.courses-page {
+
+}
+
+.courses-catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  box-shadow: $bs;
+  height: 200px;
+}

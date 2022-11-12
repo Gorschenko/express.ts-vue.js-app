@@ -1,5 +1,5 @@
 <template>
   <section>
-    Catalog
+    Courses Edit
   </section>
 </template>

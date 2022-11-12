@@ -3,10 +3,10 @@ import MainPage from '@/views/MainPage'
 import ProfilePage from '@/views/ProfilePage'
 import CardPage from '@/views/CardPage'
 import FavoritePage from '@/views/FavoritePage'
-import CatalogPage from '@/views/CatalogPage'
 import OffersPage from '@/views/OffersPage'
 
 import auth from '@/router/modules/auth.router'
+import courses from '@/router/modules/courses.router'
 import store from '@/store/store'
 
 const meta = {
@@ -15,6 +15,8 @@ const meta = {
 
 const routes = [
   ...auth,
+  ...courses,
+
   {
     path: '/',
     name: 'main',
@@ -37,12 +39,6 @@ const routes = [
     path: '/favorite',
     name: 'favorite',
     component: FavoritePage,
-    meta,
-  },
-  {
-    path: '/catalog',
-    name: 'catalog',
-    component: CatalogPage,
     meta,
   },
   {

@@ -1,11 +1,13 @@
 .layout-default {
+  overflow: hidden;
   max-width: 1400px;
+  height: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-areas:
-  'header'
-  'main';
-  grid-template-columns: 1fr;
+  'header header'
+  'sidebar main';
+  grid-template-columns: #{$sidebar-width} 1fr;
   grid-template-rows: #{$header-height} 1fr;
 
   &__header {
@@ -13,12 +15,21 @@
     border-bottom: $border-solid;
   }
 
+  &__sidebar {
+    grid-area: sidebar;
+  }
+
   &__main {
-    grid-area: main; 
+    grid-area: main;
+    padding: 16px;
   }
 }
 
 .header-logo {
+  @include flex-row;
+  gap: 4px;
+  width: #{$sidebar-width};
+
   &__icon {
     font-size: 48px;
   }

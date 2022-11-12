@@ -25,7 +25,7 @@
 <script>
 const firstList = [
   {
-    name: 'Каталог', value: 'catalog',
+    name: 'Курсы', value: 'courses',
   },
   {
     name: 'Акции', value: 'offers',
