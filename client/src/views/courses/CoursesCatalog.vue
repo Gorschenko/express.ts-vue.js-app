@@ -13,23 +13,19 @@
   >
     Show Modal
   </button>
-  <Teleport to="body">
-    <modal :show="showModal" @close="showModal = false">
-      <template #header>
-        <h3>custom header</h3>
-      </template>
-    </modal>
-  </Teleport>
+  <DefaultModal v-model="showModal">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, sunt!</p>
+  </DefaultModal>
   </div>
 </template>
 <script>
-import Modal from './Modal.vue'
+import DefaultModal from '@/components/base/DefaultModal'
 import { ref } from 'vue'
 
 export default {
   name: 'CoursesCatalog',
   components: {
-    Modal,
+    DefaultModal,
   },
   setup () {
     const showModal = ref(false)

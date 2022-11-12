@@ -3,7 +3,7 @@
     :class="classes"
     @click="$emit('action', $event)"
   >
-    <span>{{ title }}</span>
+    <span v-if="title">{{ title }}</span>
     <i
       v-if="icon"
       :class="['bx', icon]"
@@ -120,6 +120,14 @@ export default {
 
     &:hover {
       opacity: 1;
+    }
+  }
+
+  &_transparent {
+    color: $cl-primary;
+
+    &:hover {
+      color: $cl-primary-dark;
     }
   }
 
