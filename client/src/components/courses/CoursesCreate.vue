@@ -6,8 +6,8 @@
     >
       <DefaultInput
         class="mb-16"
-        id="name"
-        placeholder="Name"
+        id="title"
+        placeholder="Title"
       />
       <DefaultInput
         class="mb-16"
@@ -33,6 +33,7 @@ import DefaultInput from '@/components/base/DefaultInput'
 import DefaultButton from '@/components/base/DefaultButton'
 import { Form } from 'vee-validate'
 import * as Yup from 'yup'
+import { createCourse } from '@/api/courses.api'
 
 export default {
   name: 'CoursesCreate',
@@ -43,12 +44,17 @@ export default {
   },
   setup () {
     const validationSchema = Yup.object().shape({
-      name: Yup.string().email().required(),
+      title: Yup.string().required(),
       image: Yup.string().url().required(),
       price: Yup.number().required(),
     })
-    const submit = () => {
-      consol.log(true)
+    const submit = async $event => {
+      try {
+        const response = await createCourse($event)
+        console.log(response)
+      } catch (e) {
+        console.log(e)
+      }
     }
     return {
       validationSchema,

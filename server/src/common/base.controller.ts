@@ -23,7 +23,10 @@ export abstract class BaseController {
   }
 
   public ok<T>(res: Response, message: T): ExpressReturnType {
-    return this.send<T>(res, 200, message)
+    return this.send(res, 200, {
+      ok: true,
+      payload: message,
+    })
   }
 
   protected bindRoutes(routes: IControllerRoute[]): void {

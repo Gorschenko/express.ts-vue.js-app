@@ -8,9 +8,6 @@ import { CourseCreateDto } from './dto/course-create.dto'
 @injectable()
 export class CourseService implements ICourseService {
   constructor(@inject(TYPES.CourseRepository) private courseRepository: ICourseRepository) {}
-  async getCourses(): Promise<Course[] | null> {
-    return null
-  }
   async create({ title, price, image }: CourseCreateDto): Promise<Course> {
     const newCourse = new Course(title, price, image)
     return this.courseRepository.create(newCourse)

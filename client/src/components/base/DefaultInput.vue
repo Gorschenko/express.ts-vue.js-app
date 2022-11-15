@@ -30,6 +30,7 @@
           :placeholder="placeholder"
           :type="type"
           :class="[
+            'parent-size',
             'text_' + size,
           ]"
           :value="inputValue"

@@ -38,7 +38,7 @@ export class CourseController extends BaseController implements ICourseControlle
   }
   async fetch(req: Request, res: Response, next: NextFunction): Promise<void> {
     const result = await this.courseService.fetch()
-    this.ok(res, { result })
+    this.ok(res, result)
   }
 
   async create(
@@ -47,7 +47,7 @@ export class CourseController extends BaseController implements ICourseControlle
     next: NextFunction,
   ): Promise<void> {
     const result = await this.courseService.create(req.body)
-    this.ok(res, { result })
+    this.ok(res, result)
   }
 
   async delete(req: Request, res: Response, next: NextFunction): Promise<void> {

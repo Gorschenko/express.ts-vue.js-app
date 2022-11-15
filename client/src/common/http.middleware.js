@@ -27,11 +27,11 @@ const useHttp = async (url, method = 'GET', body = null, params = {}, json = tru
     body,
     headers,
   });
-  const payload = await response.json();
-  if (payload.ok === false) {
+  const data = await response.json();
+  if (data.ok === false) {
     throw new Error(payload.error);
   }
-  return payload;
+  return data.payload;
 };
 
 export { useHttp };

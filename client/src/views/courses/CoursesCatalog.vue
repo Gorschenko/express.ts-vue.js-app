@@ -18,6 +18,7 @@
 <script>
 import DefaultModal from '@/components/base/DefaultModal'
 import CoursesCreate from '@/components/courses/CoursesCreate'
+import { getAllCourses } from '@/api/courses.api'
 import { ref } from 'vue'
 
 export default {
@@ -28,6 +29,16 @@ export default {
   },
   setup () {
     const showModal = ref(false)
+    const courses = ref([])
+
+    const init = async () => {
+      try {
+        courses.value = await getAllCourses()
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    init()
     return {
       showModal,
     }
