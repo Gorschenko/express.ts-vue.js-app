@@ -1,14 +1,16 @@
 <template>
-  <button
+  <component
+    :is="tag"
     :class="classes"
+    :type="type"
     @click="$emit('action', $event)"
   >
-    <span v-if="title">{{ title }}</span>
     <i
       v-if="icon"
       :class="['bx', icon]"
     />
-  </button>
+    <span v-if="title">{{ title }}</span>
+  </component>
 </template>
 <script>
 import { computed } from 'vue'
@@ -17,6 +19,14 @@ export default {
   name: 'DefaultButton',
   emits: ['action'],
   props: {
+    tag: {
+      type: String,
+      default: 'button' // button, a
+    },
+    type: {
+      type: String,
+      default: 'text',
+    },
     title: {
       type: String,
       default: '',
@@ -41,7 +51,7 @@ export default {
   setup (props) {
     const classes = computed(() => [
       'default-button',
-      'default-button_' + props.size,
+      'default-button_' + props.form + '_' + props.size,
       'default-button_' + props.color,
       'default-button_' + props.form,
     ])
@@ -66,31 +76,49 @@ export default {
     color: inherit;
   }
 
-  // sizes
-  &_m {
-    gap: 8px;
-    padding: 12px 24px;
-    span {
-      @include text_m;
-      color: inherit;
+  &_rectangular {
+    &_m {
+      gap: 8px;
+      padding: 12px 24px;
+      span {
+        @include text_m;
+        color: inherit;
+      }
+    }
+
+      &_s {
+      gap: 8px;
+      padding: 8px 16px;
+      span {
+        @include text_s;
+        color: inherit;
+      }
+    }
+
+      &_xs {
+      gap: 4px;
+      padding: 6px 12px;
+      span {
+        @include text_xs;
+        color: inherit;
+      }
     }
   }
 
-  &_s {
-    gap: 8px;
-    padding: 8px 16px;
-    span {
-      @include text_s;
-      color: inherit;
+  &_round {
+    &_m {
+       font-size: 24px;
+       padding: 12px;
     }
-  }
 
-  &_xs {
-    gap: 4px;
-    padding: 6px 12px;
-    span {
-      @include text_xs;
-      color: inherit;
+    &_s {
+      font-size: 24px;
+      padding: 8px;
+    }
+
+    &_xs {
+      font-size: 16px;
+      padding: 8px;
     }
   }
 

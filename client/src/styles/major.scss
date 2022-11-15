@@ -29,7 +29,11 @@ body {
 ul {
   list-style: none;
 }
-
+input {
+  border: 0;
+  outline: 0;
+  background: 0;
+}
 button {
   margin: 0;
   padding: 0;

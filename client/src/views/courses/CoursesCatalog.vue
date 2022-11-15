@@ -1,31 +1,30 @@
 <template>
   <div>
     <div class="courses-catalog__list">
-      <article class="card flex-column-centered flex-gap-8 color_primary">
+      <article
+        class="card flex-column-centered flex-gap-8 color_primary"
+        @click="showModal = true"
+      >
         <i class="bx bx-plus icon_24" />
         <p>Add new course</p>
       </article>
     </div>
 
-  <button
-    id="show-modal"
-    @click="showModal = true"
-  >
-    Show Modal
-  </button>
-  <DefaultModal v-model="showModal">
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, sunt!</p>
-  </DefaultModal>
+    <DefaultModal v-model="showModal">
+      <CoursesCreate />
+    </DefaultModal>
   </div>
 </template>
 <script>
 import DefaultModal from '@/components/base/DefaultModal'
+import CoursesCreate from '@/components/courses/CoursesCreate'
 import { ref } from 'vue'
 
 export default {
   name: 'CoursesCatalog',
   components: {
     DefaultModal,
+    CoursesCreate,
   },
   setup () {
     const showModal = ref(false)

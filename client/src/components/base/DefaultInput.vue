@@ -116,11 +116,11 @@ export default {
   background: $cl-primary-light;
 
   &_m {
-    padding: 10px 12px;
+    padding: 12px 14px;
   }
 
   &_s {
-    padding: 8px 12px;
+    padding: 10px 14px;
   }
 
   &__wrapper {

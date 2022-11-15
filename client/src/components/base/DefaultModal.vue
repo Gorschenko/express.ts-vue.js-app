@@ -10,7 +10,7 @@
           <slot />
           <default-button
             class="default-modal__close-button"
-            color="primary"
+            color="neutral"
             form="round"
             size="xs"
             icon="bx-x"
@@ -54,12 +54,9 @@ export default {
 </script>
 <style lang="scss">
 .default-modal {
-  @include parent-size;
   position: relative;
-  width: 400px;
-  height: 400px;
   border-radius: 8px;
-  background: white;
+  background: $cl-light-background;
   transition: $tr-primary;
 
   &__wrapper {
