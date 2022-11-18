@@ -1,8 +1,8 @@
 <template>
   <div class="create-courses-modal">
     <Form
-      @submit="submit"
       :validation-schema="validationSchema"
+      @submit="submit"
     >
       <DefaultInput
         class="mb-16"
@@ -48,6 +48,7 @@ export default {
       image: Yup.string().url().required(),
       price: Yup.number().required(),
     })
+
     const submit = async $event => {
       try {
         const response = await createCourse($event)

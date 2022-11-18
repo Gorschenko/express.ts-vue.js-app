@@ -66,7 +66,7 @@ const pipeline = (context, middleware, index) => {
 }
 
 router.beforeEach((to, from, next) => {
-  if (!to.meta.middleware) {
+  if (!to.meta.middleware.length) {
     return next()
   }
   const middleware = to.meta.middleware

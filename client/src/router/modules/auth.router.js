@@ -1,7 +1,7 @@
 import SignInPage from '@/views/auth/SignInPage'
 import SignUpPage from '@/views/auth/SignUpPage'
-import adminMiddleware from '@/common/admin.middleware'
-import authMiddleware from '@/common/auth.middleware'
+// import adminMiddleware from '@/common/admin.middleware'
+// import authMiddleware from '@/common/auth.middleware'
 
 const auth = [
   {
@@ -11,7 +11,7 @@ const auth = [
     meta: {
       layout: 'default',
       middleware: [
-        authMiddleware,
+        // authMiddleware,
       ]
     }
   },
@@ -22,7 +22,7 @@ const auth = [
     meta: {
       layout: 'default',
       middleware: [
-        authMiddleware, adminMiddleware
+        // authMiddleware, adminMiddleware
       ]
     }
   }

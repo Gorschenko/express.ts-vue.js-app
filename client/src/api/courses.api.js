@@ -1,15 +1,15 @@
 import { useHttp } from '@/common/http.middleware'
 
-const createCourse = formData => {
-  return useHttp(
+const createCourse = async formData => {
+  return await useHttp(
     '/courses',
     'POST',
     formData,
   )
 }
 
-const getAllCourses = () => {
-  return useHttp(
+const getAllCourses = async () => {
+  return await useHttp(
     '/courses'
   )
 }
