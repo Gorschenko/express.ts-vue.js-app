@@ -44,6 +44,10 @@ button {
   border: 0;
 }
 
+image {
+  display: block;
+}
+
 a {
   text-decoration: none;
   cursor: pointer;
@@ -51,4 +55,13 @@ a {
 
 p, h1 {
   margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $cl-primary;
 }

@@ -21,7 +21,13 @@
 
   &__main {
     grid-area: main;
+    overflow: hidden;
+  }
+
+  &__section {
+    @include parent-size;
     padding: 16px;
+    overflow-y: scroll;
   }
 }
 

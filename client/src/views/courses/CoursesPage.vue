@@ -4,5 +4,5 @@
   </section>
 </template>
 <style lang="scss">
-@import '@/components/courses/courses'
+@import '@/components/courses/courses';
 </style>
