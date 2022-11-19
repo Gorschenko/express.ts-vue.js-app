@@ -35,15 +35,15 @@ export default {
       type: String,
       default: '',
     },
-    size: {
+    size: { // m, s, xs
       type: String,
       default: 's',
     },
-    color: {
+    color: { // primary, neutral, danger, transparent
       type: String,
       default: 'primary',
     },
-    form: {
+    form: { // rectangular, round
       type: String,
       default: 'rectangular'
     },
@@ -118,7 +118,7 @@ export default {
 
     &_xs {
       font-size: 16px;
-      padding: 8px;
+      padding: 4px;
     }
   }
 

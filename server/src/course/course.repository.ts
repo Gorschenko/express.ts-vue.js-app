@@ -1,4 +1,5 @@
 import { inject, injectable } from 'inversify'
+import { Query } from 'mongoose'
 import CourseModel from '../database/models/course.models'
 import { MongoService } from '../database/mongo.service'
 import { TYPES } from '../types'
@@ -8,9 +9,6 @@ import { ICourseRepository } from './course.repository.interface'
 @injectable()
 export class CourseRepository implements ICourseRepository {
   constructor(@inject(TYPES.MongoService) private mongoService: MongoService) {}
-  async getCourses(): Promise<Course[] | null> {
-    return null
-  }
   async create(course: Course): Promise<Course> {
     const newCourse = new CourseModel({ ...course })
     return await newCourse.save()
@@ -18,7 +16,7 @@ export class CourseRepository implements ICourseRepository {
   async fetch(): Promise<Course[] | null> {
     return await CourseModel.find()
   }
-  async find(_id: string): Promise<Course | null> {
-    return await CourseModel.findById(_id)
+  async delete(id: string): Promise<Query<{}, {}>> {
+    return await CourseModel.deleteOne({ id })
   }
 }

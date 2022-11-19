@@ -52,6 +52,6 @@ export class CourseController extends BaseController implements ICourseControlle
 
   async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
     const result = await this.courseService.delete(req.params.id)
-    this.ok(res, { result })
+    this.ok(res, result)
   }
 }
