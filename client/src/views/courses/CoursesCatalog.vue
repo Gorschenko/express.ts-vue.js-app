@@ -19,13 +19,12 @@
           :key="course._id"
           :course="course"
           @add="addCourse(course)"
-          @edit="editCourse(course)"
+          @edit="setEdition(course)"
           @delete="confirmDeletion(course._id)"
         />
       </div>
       <p
         v-else
-        class="text_s"
       >
         No courses
       </p>
@@ -34,7 +33,9 @@
     <DefaultModal v-model="modal.show">
       <component
         :is="modal.component"
+        :course="editCourse"
         @close="modal.show = false"
+        @create="createCourseHandler"
         @confirm="deleteCourseHandler"
       />
     </DefaultModal>
@@ -46,7 +47,11 @@ import CoursesCard from '@/components/courses/CoursesCard'
 import DefaultModal from '@/components/base/DefaultModal'
 import ModalConfirmation from '@/components/modals/ModalConfirmation'
 import CoursesCreate from '@/components/courses/CoursesCreate'
-import { getAllCourses, deleteCourse } from '@/api/courses.api'
+import {
+  getAllCourses,
+  deleteCourse,
+  createCourse
+} from '@/api/courses.api'
 import { ref, reactive } from 'vue'
 import { useNotification } from "@kyvg/vue3-notification";
 
@@ -84,20 +89,15 @@ export default {
     const addCourse = async course => {
       try {
         console.log(course)
-
       } catch (e) {
         notify({ type: 'error', title: 'Error', text: e.message});
       }
     }
-  
-    const editCourse = async course => {
+    const editCourse = ref({})
+    const setEdition = async course => {
       try {
-        console.log(course)
-        notify({
-          type: 'success',
-          title: "Authorization",
-          text: "You have been logged in!",
-        });
+        editCourse.value = course
+        setModal('courses-create')
       } catch (e) {
         notify({ type: 'error', title: 'Error', text: e.message});
       }
@@ -124,13 +124,20 @@ export default {
       }
     }
 
-    // const createCourse = async () => {
-    //   try {
-
-    //   } catch (e) {
-    //     console.log(e)
-    //   }
-    // }
+    const createCourseHandler = async formData => {
+      try {
+        const course = await createCourse(formData)
+        courses.value.push(course)
+        notify({
+          type: 'success',
+          title: 'Successfully',
+          text: 'The course has been successfully created'
+        });
+        modal.show = false
+      } catch (e) {
+        notify({ type: 'error', title: 'Error', text: e.message});
+      }
+    }
 
     init()
     return {
@@ -139,10 +146,10 @@ export default {
       courses,
       addCourse,
       editCourse,
+      setEdition,
       confirmDeletion,
       deleteCourseHandler,
-      
-      // createCourse,
+      createCourseHandler,
     }
   },
 }
