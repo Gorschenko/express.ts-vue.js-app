@@ -14,7 +14,7 @@ const getAllCourses = async () => {
   )
 }
 
-const deleteCourse = async (id) => {
+const deleteCourse = async id => {
   return await useHttp(
     `/courses/${id}`,
     'DELETE',
