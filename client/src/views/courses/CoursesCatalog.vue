@@ -33,8 +33,9 @@
     <DefaultModal v-model="modal.show">
       <component
         :is="modal.component"
-        :course="editCourse"
+        :course="editCourseObj"
         @close="modal.show = false"
+        @edit="editCourseHandler"
         @create="createCourseHandler"
         @confirm="deleteCourseHandler"
       />
@@ -50,9 +51,10 @@ import CoursesCreate from '@/components/courses/CoursesCreate'
 import {
   getAllCourses,
   deleteCourse,
-  createCourse
+  createCourse,
+  editCourse,
 } from '@/api/courses.api'
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { useNotification } from "@kyvg/vue3-notification";
 
 export default {
@@ -70,14 +72,16 @@ export default {
       show: false,
       component: 'courses-create',
     })
-  
+    watch(
+      () => modal.show,
+      value => value ? null : editCourseObj.value = {}
+    )
     const setModal = componentName => {
       modal.component = componentName
       modal.show = true
     }
 
     const courses = ref([])
-
     const init = async () => {
       try {
         courses.value = await getAllCourses()
@@ -93,11 +97,31 @@ export default {
         notify({ type: 'error', title: 'Error', text: e.message});
       }
     }
-    const editCourse = ref({})
+
+    const editCourseObj = ref({})
     const setEdition = async course => {
       try {
-        editCourse.value = course
+        editCourseObj.value = course
         setModal('courses-create')
+      } catch (e) {
+        notify({ type: 'error', title: 'Error', text: e.message});
+      }
+    }
+    const editCourseHandler = async formData => {
+      try {
+        await editCourse(formData)
+        courses.value = courses.value.map(c => {
+          if (c._id === formData._id) {
+            return formData
+          }
+          return c
+        })
+        notify({
+          type: 'success',
+          title: 'Successfully',
+          text: 'The course has been successfully edited'
+        });
+        modal.show = false
       } catch (e) {
         notify({ type: 'error', title: 'Error', text: e.message});
       }
@@ -145,8 +169,9 @@ export default {
       setModal,
       courses,
       addCourse,
-      editCourse,
+      editCourseObj,
       setEdition,
+      editCourseHandler,
       confirmDeletion,
       deleteCourseHandler,
       createCourseHandler,

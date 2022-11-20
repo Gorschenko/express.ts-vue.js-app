@@ -5,7 +5,7 @@ export class CourseCreateDto {
   title: string
 
   @IsString({ message: 'Неверно указана цена' })
-  price: number
+  price: string
 
   @IsUrl({ message: 'Неверно указано URL изображения' })
   image: string

@@ -7,7 +7,7 @@ const courseSchema: Schema = new Schema<Course>({
     required: true,
   },
   price: {
-    type: Number,
+    type: String,
     required: true,
   },
   image: {

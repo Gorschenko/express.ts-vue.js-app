@@ -2,11 +2,13 @@ import { Response, Request, NextFunction } from 'express'
 import { inject, injectable } from 'inversify'
 import { BaseController } from '../common/base.controller'
 import { ValidateMiddleware } from '../common/validate.middleware'
+import { HTTPError } from '../errors/http-error.class'
 import { ILogger } from '../logger/logger.interface'
 import { TYPES } from '../types'
 import { ICourseController } from './course.controller.interface'
 import { ICourseService } from './course.service.interface'
 import { CourseCreateDto } from './dto/course-create.dto'
+import { CourseEditDto } from './dto/course-edit.dto'
 
 @injectable()
 export class CourseController extends BaseController implements ICourseController {
@@ -34,6 +36,12 @@ export class CourseController extends BaseController implements ICourseControlle
         func: this.delete,
         middlewares: [],
       },
+      {
+        path: '/',
+        method: 'put',
+        func: this.edit,
+        middlewares: [new ValidateMiddleware(CourseEditDto)],
+      },
     ])
   }
   async fetch(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -52,6 +60,15 @@ export class CourseController extends BaseController implements ICourseControlle
 
   async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
     const result = await this.courseService.delete(req.params.id)
+    this.ok(res, result)
+  }
+
+  async edit(
+    req: Request<{}, {}, CourseEditDto>,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    const result = await this.courseService.edit(req.body)
     this.ok(res, result)
   }
 }

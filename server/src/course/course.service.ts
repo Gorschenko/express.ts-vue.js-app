@@ -5,6 +5,7 @@ import { Course } from './course.entity'
 import { ICourseRepository } from './course.repository.interface'
 import { ICourseService } from './course.service.interface'
 import { CourseCreateDto } from './dto/course-create.dto'
+import { CourseEditDto } from './dto/course-edit.dto'
 
 @injectable()
 export class CourseService implements ICourseService {
@@ -21,6 +22,11 @@ export class CourseService implements ICourseService {
 
   async delete(id: string): Promise<Boolean> {
     await this.courseRepository.delete(id)
+    return true
+  }
+
+  async edit(course: CourseEditDto): Promise<Boolean> {
+    await this.courseRepository.edit(course)
     return true
   }
 }

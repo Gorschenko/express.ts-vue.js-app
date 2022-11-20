@@ -62,6 +62,10 @@ export default {
       type: [String, Number],
       required: true,
     },
+    value: {
+      type: [String, Number],
+      default: '',
+    },
     wrapperType: {
       type: String,
       default: 'column',
