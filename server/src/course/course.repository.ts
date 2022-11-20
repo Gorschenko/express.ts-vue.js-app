@@ -20,7 +20,10 @@ export class CourseRepository implements ICourseRepository {
   async delete(id: string): Promise<Query<{}, {}>> {
     return await CourseModel.deleteOne({ id })
   }
-  async edit(course: CourseEditDto): Promise<Query<{}, {}>> {
-    return await CourseModel.updateOne(course)
+  async edit(course: CourseEditDto): Promise<void | null> {
+    const { _id } = course
+    const copyCourse = Object.assign({}, course as any)
+    delete copyCourse._id
+    return await CourseModel.findByIdAndUpdate(_id, course)
   }
 }

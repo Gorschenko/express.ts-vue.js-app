@@ -5,5 +5,5 @@ export interface ICourseRepository {
   create: (course: Course) => Promise<Course>
   fetch: () => Promise<Course[] | null>
   delete: (id: string) => Promise<Query<{}, {}>>
-  edit: (course: CourseEditDto) => Promise<Query<{}, {}>>
+  edit: (course: CourseEditDto) => Promise<void | null>
 }
