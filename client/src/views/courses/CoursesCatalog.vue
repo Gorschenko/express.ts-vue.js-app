@@ -86,7 +86,7 @@ export default {
       try {
         courses.value = await getAllCourses()
       } catch (e) {
-        notify({ type: 'error', title: 'Error', text: e.message});
+        notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
     }
 
@@ -94,7 +94,7 @@ export default {
       try {
         console.log(course)
       } catch (e) {
-        notify({ type: 'error', title: 'Error', text: e.message});
+        notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
     }
 
@@ -104,7 +104,7 @@ export default {
         editCourseObj.value = course
         setModal('courses-create')
       } catch (e) {
-        notify({ type: 'error', title: 'Error', text: e.message});
+        notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
     }
     const editCourseHandler = async formData => {
@@ -123,7 +123,7 @@ export default {
         });
         modal.show = false
       } catch (e) {
-        notify({ type: 'error', title: 'Error', text: e.message});
+        notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
     }
 
@@ -144,7 +144,7 @@ export default {
         });
         modal.show = false
       } catch (e) {
-        notify({ type: 'error', title: 'Error', text: e.message});
+        notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
     }
 
@@ -159,7 +159,7 @@ export default {
         });
         modal.show = false
       } catch (e) {
-        notify({ type: 'error', title: 'Error', text: e.message});
+        notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
     }
 

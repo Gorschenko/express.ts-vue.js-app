@@ -1,5 +1,4 @@
 import CoursesPage from '@/views/courses/CoursesPage'
-import CoursesEdit from '@/views/courses/CoursesEdit'
 import CoursesCatalog from '@/views/courses/CoursesCatalog'
 
 const meta = {
@@ -14,12 +13,6 @@ const courses = [
     meta,
     redirect: { name: 'courses-catalog' },
     children: [
-      {
-        path: '/courses-edit',
-        name: 'courses-edit',
-        component: CoursesEdit,
-        meta,
-      },
       {
         path: '/courses-catalog',
         name: 'courses-catalog',

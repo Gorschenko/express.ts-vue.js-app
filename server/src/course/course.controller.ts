@@ -17,32 +17,35 @@ export class CourseController extends BaseController implements ICourseControlle
     @inject(TYPES.CourseService) private courseService: ICourseService,
   ) {
     super(loggerService)
-    this.bindRoutes([
-      {
-        path: '/',
-        method: 'get',
-        func: this.fetch,
-        middlewares: [],
-      },
-      {
-        path: '/',
-        method: 'post',
-        func: this.create,
-        middlewares: [new ValidateMiddleware(CourseCreateDto)],
-      },
-      {
-        path: '/:id',
-        method: 'delete',
-        func: this.delete,
-        middlewares: [],
-      },
-      {
-        path: '/',
-        method: 'put',
-        func: this.edit,
-        middlewares: [new ValidateMiddleware(CourseEditDto)],
-      },
-    ])
+    this.bindRoutes(
+      [
+        {
+          path: '/',
+          method: 'get',
+          func: this.fetch,
+          middlewares: [],
+        },
+        {
+          path: '/',
+          method: 'post',
+          func: this.create,
+          middlewares: [new ValidateMiddleware(CourseCreateDto)],
+        },
+        {
+          path: '/:id',
+          method: 'delete',
+          func: this.delete,
+          middlewares: [],
+        },
+        {
+          path: '/',
+          method: 'put',
+          func: this.edit,
+          middlewares: [new ValidateMiddleware(CourseEditDto)],
+        },
+      ],
+      '/courses',
+    )
   }
   async fetch(req: Request, res: Response, next: NextFunction): Promise<void> {
     const result = await this.courseService.fetch()

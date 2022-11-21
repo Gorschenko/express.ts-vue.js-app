@@ -12,11 +12,11 @@ const useHttp = async (url, method = 'GET', body = null, params = {}, json = tru
   const headers = {};
   if (json) {
     headers['Content-Type'] = 'application/json';
+    headers['Authorization'] = 'Bearer ' + localStorage.getItem('token')
   }
 
   params = {
     ...params,
-    // token: localStorage.getItem('token'),
   };
   params = new URLSearchParams(params).toString();
 
@@ -28,8 +28,8 @@ const useHttp = async (url, method = 'GET', body = null, params = {}, json = tru
     headers,
   });
   const data = await response.json();
-  if (data.ok === false) {
-    throw new Error(payload.error);
+  if (data.err) {
+    throw new Error(data.err);
   }
   return data.payload;
 };

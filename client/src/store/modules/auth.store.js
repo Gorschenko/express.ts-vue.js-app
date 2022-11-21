@@ -1,3 +1,4 @@
+// test middlewares
 export default {
   namespaced: true,
   state() {

@@ -23,26 +23,29 @@ export class UserController extends BaseController implements IUserController {
     @inject(TYPES.ConfigService) private configService: IConfigService,
   ) {
     super(loggerService)
-    this.bindRoutes([
-      {
-        path: '/login',
-        method: 'post',
-        func: this.login,
-        middlewares: [new ValidateMiddleware(UserLoginDto)],
-      },
-      {
-        path: '/register',
-        method: 'post',
-        func: this.register,
-        middlewares: [new ValidateMiddleware(UserRegisterDto)],
-      },
-      {
-        path: '/info',
-        method: 'get',
-        func: this.info,
-        middlewares: [new AuthGuard()],
-      },
-    ])
+    this.bindRoutes(
+      [
+        {
+          path: '/login',
+          method: 'post',
+          func: this.login,
+          middlewares: [new ValidateMiddleware(UserLoginDto)],
+        },
+        {
+          path: '/register',
+          method: 'post',
+          func: this.register,
+          middlewares: [new ValidateMiddleware(UserRegisterDto)],
+        },
+        {
+          path: '/info',
+          method: 'get',
+          func: this.info,
+          middlewares: [new AuthGuard()],
+        },
+      ],
+      '/auth',
+    )
   }
 
   async login(
@@ -54,8 +57,8 @@ export class UserController extends BaseController implements IUserController {
     if (!result) {
       return next(new HTTPError(401, 'Ошибка авторизации', 'login'))
     }
-    const jwt = await this.signJWT(req.body.email, this.configService.get('SECRET'))
-    this.ok(res, { jwt })
+    const token = await this.signJWT(req.body.email, this.configService.get('SECRET'))
+    this.ok(res, { token })
   }
 
   private signJWT(email: string, secret: string): Promise<string> {
