@@ -8,9 +8,10 @@ import UserModel from '../database/models/user.model'
 @injectable()
 export class UserRepository implements IUserRepository {
   constructor(@inject(TYPES.MongoService) private mongoService: MongoService) {}
-  async create(user: User): Promise<User> {
+  async create(user: User): Promise<boolean> {
     const newUser = new UserModel({ email: user.email, name: user.name, password: user.password })
-    return await newUser.save()
+    await newUser.save()
+    return true
   }
   async find(email: string): Promise<User | null> {
     return await UserModel.findOne({ email })

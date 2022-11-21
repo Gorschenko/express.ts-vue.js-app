@@ -38,6 +38,8 @@ import DefaultButton from '@/components/base/DefaultButton'
 import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import { signUp } from '@/api/auth.api/'
+import { useNotification } from "@kyvg/vue3-notification";
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'SignUpPage',
@@ -47,6 +49,8 @@ export default {
     Form,
   },
   setup () {
+    const { notify}  = useNotification()
+    const router = useRouter()
     const validationSchema = Yup.object().shape({
       email: Yup.string().email().required(),
       name: Yup.string().required(),
@@ -55,10 +59,13 @@ export default {
 
     const submit = async $event => {
       try {
-        const response = await signUp($event)
-        console.log(response)
+        await signUp($event)
+        router.push({
+          name: 'sign-in',
+        })
+        notify({ type: 'success', title: 'Успешно', text: 'Регистрация успешно заверешена'});
       } catch (e) {
-        console.log(e)
+        notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
     }
     return {
