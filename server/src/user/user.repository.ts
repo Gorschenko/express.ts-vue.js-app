@@ -13,7 +13,11 @@ export class UserRepository implements IUserRepository {
     await newUser.save()
     return true
   }
-  async find(email: string): Promise<User | null> {
-    return await UserModel.findOne({ email })
+  async find(email: string, hasPassword = false): Promise<User | null> {
+    if (hasPassword) {
+      return await UserModel.findOne({ email })
+    } else {
+      return await UserModel.findOne({ email }, '-password')
+    }
   }
 }

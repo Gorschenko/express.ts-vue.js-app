@@ -26,7 +26,7 @@ export class UserService implements IUSerService {
   }
 
   async validateUser(body: UserLoginDto): Promise<boolean> {
-    const existedUser = await this.userRepository.find(body.email)
+    const existedUser = await this.userRepository.find(body.email, true)
     if (!existedUser) {
       return false
     }
