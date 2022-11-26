@@ -7,6 +7,15 @@ const getUser = async () => {
   )
 }
 
+const addCourse = async course => {
+  return await useHttp(
+    '/auth/add-course',
+    'POST',
+    course
+  )
+}
+
 export {
   getUser,
+  addCourse,
 }

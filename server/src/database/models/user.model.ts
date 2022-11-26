@@ -14,6 +14,21 @@ const userSchema: Schema = new Schema<User>({
     type: String,
     required: true,
   },
+  cart: {
+    items: [
+      {
+        count: {
+          type: Number,
+          required: true,
+        },
+        courseId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Course',
+          required: true,
+        },
+      },
+    ],
+  },
 })
 
 const UserModel = model<User>('User', userSchema)

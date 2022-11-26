@@ -17,7 +17,13 @@ export class UserRepository implements IUserRepository {
     if (hasPassword) {
       return await UserModel.findOne({ email })
     } else {
-      return await UserModel.findOne({ email }, '-password')
+      return await UserModel.findOne({ email }, '-password').populate('cart.items.courseId')
     }
+  }
+  async update(email: string, updatedUser: User): Promise<User | null> {
+    const copyUser = Object.assign({}, updatedUser as any)
+    delete copyUser._id
+    console.log(copyUser)
+    return await UserModel.findByIdAndUpdate(email, copyUser)
   }
 }

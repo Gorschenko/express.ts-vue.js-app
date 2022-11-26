@@ -1,6 +1,7 @@
 import { compare, hash } from 'bcryptjs'
 export class User {
   private _password: string
+  private _cart: any
 
   constructor(
     private readonly _email: string,
@@ -9,6 +10,9 @@ export class User {
   ) {
     if (hashPassword) {
       this._password = hashPassword
+    }
+    this._cart = {
+      items: [],
     }
   }
 
@@ -22,6 +26,9 @@ export class User {
 
   get password(): string {
     return this._password
+  }
+  get cart(): any {
+    return this._cart
   }
 
   public async setPassword(pass: string, salt: number): Promise<void> {

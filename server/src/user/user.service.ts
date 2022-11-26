@@ -1,6 +1,7 @@
 // В Сервисе только бизнес логика
 import { inject, injectable } from 'inversify'
 import { IConfigService } from '../config/config.service.interface'
+import { Course } from '../course/course.entity'
 import { TYPES } from '../types'
 import { UserLoginDto } from './dto/user-login.dto'
 import { UserRegisterDto } from './dto/user-register.dto'
@@ -36,5 +37,23 @@ export class UserService implements IUSerService {
 
   async getUserInfo(email: string): Promise<User | null> {
     return this.userRepository.find(email)
+  }
+  async addCourse(email: string, course: any): Promise<User | null> {
+    const user = await this.userRepository.find(email)
+    if (user) {
+      const items = user.cart.items.slice()
+      const idx = items.findIndex((i: any) => i.courseId.toString() === course._id.toString())
+      if (idx >= 0) {
+        items[idx].count = items[idx].count + 1
+      } else {
+        items.push({
+          courseId: course._id,
+          count: 1,
+        })
+      }
+      user.cart.items = items
+      return await this.userRepository.update(email, user)
+    }
+    return null
   }
 }

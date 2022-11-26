@@ -18,7 +18,7 @@
           v-for="course in courses"
           :key="course._id"
           :course="course"
-          @add="addCourse(course)"
+          @add="addCourseHandler(course)"
           @edit="setEdition(course)"
           @delete="confirmDeletion(course._id)"
         />
@@ -54,6 +54,9 @@ import {
   createCourse,
   editCourse,
 } from '@/api/courses.api'
+import {
+  addCourse,
+} from '@/api/user.api'
 import { ref, reactive, watch } from 'vue'
 import { useNotification } from "@kyvg/vue3-notification";
 
@@ -90,9 +93,10 @@ export default {
       }
     }
 
-    const addCourse = async course => {
+    const addCourseHandler = async course => {
       try {
-        console.log(course)
+        const newCourse = await addCourse(course)
+        console.log(newCourse)
       } catch (e) {
         notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
@@ -168,7 +172,7 @@ export default {
       modal,
       setModal,
       courses,
-      addCourse,
+      addCourseHandler,
       editCourseObj,
       setEdition,
       editCourseHandler,
