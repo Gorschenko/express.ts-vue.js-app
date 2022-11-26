@@ -29,6 +29,7 @@
     &_primary:hover {
       color: $cl-primary;
     }
+  
     &_primary {
       &_light:hover {
         color: $cl-primary-light;
@@ -69,5 +70,31 @@
 
   &_danger {
     background: $cl-danger;
+  }
+
+  &_hovered {
+    transition: $tr-primary;
+    
+    &_primary:hover {
+      background: $cl-primary;
+    }
+  
+    &_primary {
+      &_light:hover {
+        background: $cl-primary-light;
+      }
+
+      &_dark:hover {
+        background: $cl-primary-dark;
+      }
+    }
+
+    &_neutral:hover {
+      background: $cl-neutral;
+    }
+
+    &_danger:hover {
+      background: $cl-danger;
+    }
   }
 }

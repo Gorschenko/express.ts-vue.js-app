@@ -4,6 +4,7 @@
     class="default-dropdown"
   >
     <div
+      class="cursor-pointer"
       @click.stop="showDropdown = !showDropdown"
     >
       <slot name="default" />

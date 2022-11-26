@@ -33,19 +33,10 @@ const firstList = [
 ]
 const secondList = [
   {
-    name: 'Профиль', value: 'profile',
-  },
-  {
     name: 'Корзина', value: 'card',
   },
   {
     name: 'Избранное', value: 'favorite',
-  },
-  {
-    name: 'Войти', value: 'sign-in',
-  },
-  {
-    name: 'Регистрация', value: 'sign-up',
   },
 ]
 export default {

@@ -4,9 +4,10 @@
   />
 </template>
 <script>
+import LayoutDefault from '@/layouts/LayoutDefault'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import LayoutDefault from '@/layouts/LayoutDefault'
+import { useRoot } from '@/use/root.use'
 
 export default {
   name: 'App',
@@ -15,7 +16,11 @@ export default {
   },
   setup () {
     const route = useRoute();
+    const { firstFetch } = useRoot()
     const layout = computed(() => 'layout-' + route.meta.layout)
+    const init = async () => await firstFetch();
+    init();
+  
     return {
       layout,
     };

@@ -15,7 +15,7 @@ export default {
     },
   },
   actions: {
-    async SET_USER (context, payload) {
+    async SET_USER (context) {
       const user = await getUser()
       context.commit('SET_USER', user)
       return user

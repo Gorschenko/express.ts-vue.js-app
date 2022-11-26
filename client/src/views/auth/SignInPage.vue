@@ -34,8 +34,7 @@ import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import { signIn } from '@/api/auth.api/'
 import { useNotification } from "@kyvg/vue3-notification";
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
+import { useRoot } from '@/use/root.use'
 
 export default {
   name: 'SignInPage',
@@ -45,9 +44,8 @@ export default {
     Form,
   },
   setup () {
-    const store = useStore()
-    const router = useRouter()
     const { notify}  = useNotification()
+    const { firstFetch } = useRoot()
     const validationSchema = Yup.object().shape({
       email: Yup.string().email().required(),
       password: Yup.string().required(),
@@ -57,10 +55,7 @@ export default {
       try {
         const { token } = await signIn($event)
         localStorage.setItem('token', token)
-        if (token) {
-          await store.dispatch('user/SET_USER')
-          router.push('/')
-        }
+        await firstFetch()
       } catch (e) {
         notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
