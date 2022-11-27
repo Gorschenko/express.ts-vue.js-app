@@ -4,6 +4,7 @@ import { TYPES } from '../types'
 import { User } from './user.entity'
 import { IUserRepository } from './user.repository.interface'
 import UserModel from '../database/models/user.model'
+import { IUserModel } from '../interfaces/user-model.interface'
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -15,15 +16,16 @@ export class UserRepository implements IUserRepository {
   }
   async find(email: string, populate = '', hasPassword = false): Promise<User | null> {
     if (hasPassword) {
-      return await UserModel.findOne({ email })
+      return await UserModel.findOne({ email }).populate(populate)
     } else {
-      return await UserModel.findOne({ email }, '-password')
+      return await UserModel.findOne({ email }, '-password').populate(populate)
     }
   }
-  async update(user: any): Promise<User | null> {
-    const result = await UserModel.findByIdAndUpdate(user._id, user, { new: true }).populate(
-      'cart.items._id',
-    )
+  async update(user: IUserModel, populate = ''): Promise<User | null> {
+    const result = await UserModel.findByIdAndUpdate(user._id, user, {
+      new: true,
+      fields: '-password',
+    }).populate(populate)
     return result
   }
 }
