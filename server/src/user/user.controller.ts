@@ -14,6 +14,7 @@ import { ValidateMiddleware } from '../common/validate.middleware'
 import { IConfigService } from '../config/config.service.interface'
 import { sign } from 'jsonwebtoken'
 import { AuthGuard } from '../common/auth.guard'
+import { CourseEditDto } from '../course/dto/course-edit.dto'
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -45,9 +46,9 @@ export class UserController extends BaseController implements IUserController {
         },
         {
           path: '/add-course',
-          method: 'post',
+          method: 'patch',
           func: this.addCourse,
-          middlewares: [new AuthGuard()],
+          middlewares: [new AuthGuard(), new ValidateMiddleware(CourseEditDto)],
         },
       ],
       '/auth',
@@ -100,7 +101,11 @@ export class UserController extends BaseController implements IUserController {
     this.ok(res, userInfo)
   }
 
-  async addCourse(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async addCourse(
+    req: Request<{}, {}, CourseEditDto>,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
     const result = await this.userService.addCourse(req.user.email, req.body)
     if (!result) {
       return next(new HTTPError(400, 'Ошибка', 'add-course'))

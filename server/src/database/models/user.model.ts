@@ -21,7 +21,7 @@ const userSchema: Schema = new Schema<User>({
           type: Number,
           required: true,
         },
-        courseId: {
+        _id: {
           type: Schema.Types.ObjectId,
           ref: 'Course',
           required: true,

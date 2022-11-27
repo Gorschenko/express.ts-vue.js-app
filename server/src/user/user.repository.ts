@@ -13,17 +13,17 @@ export class UserRepository implements IUserRepository {
     await newUser.save()
     return true
   }
-  async find(email: string, hasPassword = false): Promise<User | null> {
+  async find(email: string, populate = '', hasPassword = false): Promise<User | null> {
     if (hasPassword) {
       return await UserModel.findOne({ email })
     } else {
-      return await UserModel.findOne({ email }, '-password').populate('cart.items.courseId')
+      return await UserModel.findOne({ email }, '-password')
     }
   }
-  async update(email: string, updatedUser: User): Promise<User | null> {
-    const copyUser = Object.assign({}, updatedUser as any)
-    delete copyUser._id
-    console.log(copyUser)
-    return await UserModel.findByIdAndUpdate(email, copyUser)
+  async update(user: any): Promise<User | null> {
+    const result = await UserModel.findByIdAndUpdate(user._id, user, { new: true }).populate(
+      'cart.items._id',
+    )
+    return result
   }
 }
