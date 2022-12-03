@@ -18,7 +18,7 @@
           v-for="course in courses"
           :key="course._id"
           :course="course"
-          @add="addCourseHandler(course._id)"
+          @add-to-cart="addCourseHandler(course._id)"
           @edit="setEdition(course)"
           @delete="confirmDeletion(course._id)"
         />
@@ -44,7 +44,7 @@
 </template>
 <script>
 import DefaultButton from '@/components/base/DefaultButton'
-import CoursesCard from '@/components/courses/CoursesCard'
+import CoursesCard from '@/components/courses/card/CoursesCard'
 import DefaultModal from '@/components/base/DefaultModal'
 import ModalConfirmation from '@/components/modals/ModalConfirmation'
 import CoursesCreate from '@/components/courses/CoursesCreate'
@@ -58,6 +58,7 @@ import {
   addCourse,
 } from '@/api/user.api'
 import { ref, reactive, watch } from 'vue'
+import { useStore } from 'vuex'
 import { useNotification } from "@kyvg/vue3-notification";
 
 export default {
@@ -70,6 +71,7 @@ export default {
     CoursesCreate,
   },
   setup () {
+    const store = useStore()
     const { notify}  = useNotification()
     const modal = reactive({
       show: false,
@@ -95,8 +97,9 @@ export default {
 
     const addCourseHandler = async courseId => {
       try {
-        const newCourse = await addCourse(courseId)
-        console.log(newCourse)
+        const updatedUser = await addCourse(courseId)
+        store.commit('user/SET_USER', updatedUser)
+        notify({ type: 'success', title: 'Успешно', text: 'Курс был успешно добавлен'});
       } catch (e) {
         notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
