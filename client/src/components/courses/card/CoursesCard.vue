@@ -1,11 +1,12 @@
 <template>
   <article class="card">
-    <header class="flex-row-between mb-16">
+    <header class="flex-row-between flex-wrap flex-gap-8 mb-16">
       <h1 class="text_l text_weight_accent">{{ course.title }}</h1>
       <div class="flex-row flex-gap-8">
         <DefaultButton
           title="Редактировать"
           color="transparent"
+          :without-paddings="true"
           @action="$emit('edit')"
         />
         <DefaultButton

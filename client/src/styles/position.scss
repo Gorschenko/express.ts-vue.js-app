@@ -16,6 +16,10 @@
   display: flex;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .flex-row {
   @include flex-row;
 }
@@ -59,9 +63,11 @@
 .parent-width { 
   width: 100%;
 }
+
 .flex-justify-content-end {
   justify-content: flex-end;;
 }
+
 .margin-center {
   margin: 0 auto;
 }

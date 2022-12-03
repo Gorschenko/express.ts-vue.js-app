@@ -7,14 +7,22 @@ const getUser = async () => {
   )
 }
 
-const addCourse = async courseId => {
+const addCourseToCart = async courseId => {
   return await useHttp(
     `/auth/add-course/${courseId}`,
     'POST',
   )
 }
 
+const deleteCourseToCart = async courseId => {
+  return await useHttp(
+    `/auth/delete-course/${courseId}`,
+    'DELETE',
+  )
+}
+
 export {
   getUser,
-  addCourse,
+  addCourseToCart,
+  deleteCourseToCart,
 }

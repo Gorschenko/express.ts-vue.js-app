@@ -18,9 +18,10 @@
           v-for="course in courses"
           :key="course._id"
           :course="course"
-          @add-to-cart="addCourseHandler(course._id)"
+          @add-to-cart="addCourseToCartHandler(course._id)"
+          @delete-to-cart="deleteCourseToCartHandler(course._id)"
           @edit="setEdition(course)"
-          @delete="confirmDeletion(course._id)"
+          @delete="confirmDeleteCourse(course._id)"
         />
       </div>
       <p
@@ -55,7 +56,8 @@ import {
   editCourse,
 } from '@/api/courses.api'
 import {
-  addCourse,
+  addCourseToCart,
+  deleteCourseToCart
 } from '@/api/user.api'
 import { ref, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
@@ -95,15 +97,26 @@ export default {
       }
     }
 
-    const addCourseHandler = async courseId => {
+    const addCourseToCartHandler = async courseId => {
       try {
-        const updatedUser = await addCourse(courseId)
+        const updatedUser = await addCourseToCart(courseId)
         store.commit('user/SET_USER', updatedUser)
-        notify({ type: 'success', title: 'Успешно', text: 'Курс был успешно добавлен'});
+        notify({ type: 'success', title: 'Успешно', text: 'Курс был успешно добавлен в корзину'});
       } catch (e) {
         notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
     }
+
+    const deleteCourseToCartHandler = async courseId => {
+      try {
+        const updatedUser = await deleteCourseToCart(courseId)
+        store.commit('user/SET_USER', updatedUser)
+        notify({ type: 'success', title: 'Успешно', text: 'Курс был успешно удален из корзины'});
+      } catch (e) {
+        notify({ type: 'error', title: 'Ошибка', text: e.message});
+      }
+    }
+
 
     const editCourseObj = ref({})
     const setEdition = async course => {
@@ -135,7 +148,7 @@ export default {
     }
 
     const deleteId = ref('')
-    const confirmDeletion = async id => {
+    const confirmDeleteCourse = async id => {
       deleteId.value = id
       setModal('modal-confirmation')
     }
@@ -175,11 +188,12 @@ export default {
       modal,
       setModal,
       courses,
-      addCourseHandler,
+      addCourseToCartHandler,
+      deleteCourseToCartHandler,
       editCourseObj,
       setEdition,
       editCourseHandler,
-      confirmDeletion,
+      confirmDeleteCourse,
       deleteCourseHandler,
       createCourseHandler,
     }

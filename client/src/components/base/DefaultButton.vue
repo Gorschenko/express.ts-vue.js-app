@@ -47,6 +47,10 @@ export default {
       type: String,
       default: 'rectangular'
     },
+    withoutPaddings: {
+      type: Boolean,
+      default: false,
+    }
   },
   setup (props) {
     const classes = computed(() => [
@@ -54,6 +58,7 @@ export default {
       'default-button_' + props.form + '_' + props.size,
       'default-button_' + props.color,
       'default-button_' + props.form,
+      { 'default-button_resetted': props.withoutPaddings },
     ])
     return {
       classes,
@@ -166,6 +171,10 @@ export default {
 
   &_round {
     border-radius: 50%;
+  }
+
+  &_resetted {
+    padding: 0 !important;
   }
 
 }
