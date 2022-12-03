@@ -7,4 +7,5 @@ export interface IUSerService {
   validateUser: (dto: UserLoginDto) => Promise<boolean>
   getUserInfo: (email: string) => Promise<User | null>
   addCourse: (email: string, courseId: string) => Promise<User | null>
+  deleteCourse: (email: string, courseId: string) => Promise<User | null>
 }

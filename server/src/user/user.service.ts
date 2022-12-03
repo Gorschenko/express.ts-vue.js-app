@@ -2,7 +2,6 @@
 import e from 'express'
 import { inject, injectable } from 'inversify'
 import { IConfigService } from '../config/config.service.interface'
-import { CourseEditDto } from '../course/dto/course-edit.dto'
 import { IUserCartItem } from '../interfaces/user-cart.interface'
 import { TYPES } from '../types'
 import { UserLoginDto } from './dto/user-login.dto'
@@ -64,6 +63,23 @@ export class UserService implements IUSerService {
           },
         ]
       }
+      return await this.userRepository.update(user)
+    }
+    return null
+  }
+
+  async deleteCourse(email: string, courseId: string): Promise<User | null> {
+    const user = await this.userRepository.find(email)
+    if (user) {
+      const updatedItems = user.cart.items
+        ?.map((i) => {
+          if (i._id.toString() === courseId.toString()) {
+            i.count = i.count - 1
+          }
+          return i
+        })
+        .filter((i) => i.count !== 0)
+      user.cart.items = updatedItems
       return await this.userRepository.update(user)
     }
     return null

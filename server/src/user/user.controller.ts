@@ -50,6 +50,12 @@ export class UserController extends BaseController implements IUserController {
           func: this.addCourse,
           middlewares: [new AuthGuard()],
         },
+        {
+          path: '/delete-course/:id',
+          method: 'delete',
+          func: this.deleteCourse,
+          middlewares: [new AuthGuard()],
+        },
       ],
       '/auth',
     )
@@ -105,6 +111,14 @@ export class UserController extends BaseController implements IUserController {
     const result = await this.userService.addCourse(req.user.email, req.params.id)
     if (!result) {
       return next(new HTTPError(400, 'Ошибка', 'add-course'))
+    }
+    this.ok(res, result)
+  }
+
+  async deleteCourse(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const result = await this.userService.deleteCourse(req.user.email, req.params.id)
+    if (!result) {
+      return next(new HTTPError(400, 'Ошибка', 'delete-course'))
     }
     this.ok(res, result)
   }
