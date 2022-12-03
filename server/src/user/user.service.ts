@@ -41,25 +41,25 @@ export class UserService implements IUSerService {
     return this.userRepository.find(email)
   }
 
-  async addCourse(email: string, course: CourseEditDto): Promise<User | null> {
+  async addCourse(email: string, courseId: string): Promise<User | null> {
     const user = await this.userRepository.find(email)
     if (user) {
       if (user.cart.items) {
         const idx = user.cart.items.findIndex(
-          (i: IUserCartItem) => i._id.toString() === course._id.toString(),
+          (i: IUserCartItem) => i._id.toString() === courseId.toString(),
         )
         if (idx >= 0) {
           user.cart.items[idx].count = user.cart.items[idx].count + 1
         } else {
           user.cart.items.push({
-            _id: course._id,
+            _id: courseId,
             count: 1,
           })
         }
       } else {
         user.cart.items = [
           {
-            _id: course._id,
+            _id: courseId,
             count: 1,
           },
         ]

@@ -45,10 +45,10 @@ export class UserController extends BaseController implements IUserController {
           middlewares: [new AuthGuard()],
         },
         {
-          path: '/add-course',
-          method: 'patch',
+          path: '/add-course/:id',
+          method: 'post',
           func: this.addCourse,
-          middlewares: [new AuthGuard(), new ValidateMiddleware(CourseEditDto)],
+          middlewares: [new AuthGuard()],
         },
       ],
       '/auth',
@@ -101,12 +101,8 @@ export class UserController extends BaseController implements IUserController {
     this.ok(res, userInfo)
   }
 
-  async addCourse(
-    req: Request<{}, {}, CourseEditDto>,
-    res: Response,
-    next: NextFunction,
-  ): Promise<void> {
-    const result = await this.userService.addCourse(req.user.email, req.body)
+  async addCourse(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const result = await this.userService.addCourse(req.user.email, req.params.id)
     if (!result) {
       return next(new HTTPError(400, 'Ошибка', 'add-course'))
     }

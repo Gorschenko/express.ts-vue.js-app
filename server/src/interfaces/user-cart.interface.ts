@@ -6,5 +6,5 @@ export interface IUserCart {
 
 export interface IUserCartItem {
   count: number
-  _id: Schema.Types.ObjectId
+  _id: Schema.Types.ObjectId | string
 }

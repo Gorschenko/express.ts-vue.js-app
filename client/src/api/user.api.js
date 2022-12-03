@@ -7,11 +7,10 @@ const getUser = async () => {
   )
 }
 
-const addCourse = async course => {
+const addCourse = async courseId => {
   return await useHttp(
-    '/auth/add-course',
-    'PATCH',
-    course
+    `/auth/add-course/${courseId}`,
+    'POST',
   )
 }
 

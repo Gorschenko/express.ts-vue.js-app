@@ -18,7 +18,7 @@
           v-for="course in courses"
           :key="course._id"
           :course="course"
-          @add="addCourseHandler(course)"
+          @add="addCourseHandler(course._id)"
           @edit="setEdition(course)"
           @delete="confirmDeletion(course._id)"
         />
@@ -93,9 +93,9 @@ export default {
       }
     }
 
-    const addCourseHandler = async course => {
+    const addCourseHandler = async courseId => {
       try {
-        const newCourse = await addCourse(course)
+        const newCourse = await addCourse(courseId)
         console.log(newCourse)
       } catch (e) {
         notify({ type: 'error', title: 'Ошибка', text: e.message});
