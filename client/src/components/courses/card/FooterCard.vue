@@ -1,18 +1,32 @@
 <template>
-  <footer class="flex-row-centered flex-gap-4">
+  <footer >
+    <div
+      v-if="counter > 0"
+      class="flex-row-centered flex-gap-4"
+    >
+      <DefaultButton
+        icon="bx-minus"
+        form="round"
+        color="transparent"
+        size="xs"
+        @action="$emit('delete-to-cart')"
+      />
+      <p class="text_l text_accent">{{ counter }}</p>
+      <DefaultButton
+        icon="bx-plus"
+        form="round"
+        color="transparent"
+        size="xs"
+        @action="$emit('add-to-cart')"
+      />
+    </div>
     <DefaultButton
-      icon="bx-minus"
-      form="round"
-      color="transparent"
-      size="xs"
-      @action="$emit('delete-to-cart')"
-    />
-    <p class="text_l text_accent">{{ counter || 0 }}</p>
-    <DefaultButton
-      icon="bx-plus"
-      form="round"
-      color="transparent"
-      size="xs"
+      v-else
+      class="parent-width"
+      title="Добавить"
+      form="rectangular"
+      color="primary"
+      size="s"
       @action="$emit('add-to-cart')"
     />
   </footer>
@@ -37,7 +51,7 @@ export default {
   setup (props) {
     const store = useStore()
     const counter = computed(() => 
-      store.getters['user/user'].cart.items?.find(i => i._id === props.courseId)?.count
+      store.getters['user/user'].cart.items?.find(i => i._id === props.courseId)?.count || 0
     )
 
     return {

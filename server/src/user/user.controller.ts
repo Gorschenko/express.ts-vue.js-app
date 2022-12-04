@@ -14,7 +14,6 @@ import { ValidateMiddleware } from '../common/validate.middleware'
 import { IConfigService } from '../config/config.service.interface'
 import { sign } from 'jsonwebtoken'
 import { AuthGuard } from '../common/auth.guard'
-import { CourseEditDto } from '../course/dto/course-edit.dto'
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -45,13 +44,13 @@ export class UserController extends BaseController implements IUserController {
           middlewares: [new AuthGuard()],
         },
         {
-          path: '/add-course/:id',
+          path: '/cart/:id',
           method: 'post',
           func: this.addCourse,
           middlewares: [new AuthGuard()],
         },
         {
-          path: '/delete-course/:id',
+          path: '/cart/:id',
           method: 'delete',
           func: this.deleteCourse,
           middlewares: [new AuthGuard()],

@@ -5,3 +5,7 @@
 .default-box-shadow {
   box-shadow: $bs;
 }
+
+.tr-primary {
+  transition: $tr-primary;
+}

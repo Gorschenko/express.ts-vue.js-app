@@ -14,6 +14,8 @@
 }
 
 .card {
+  @include flex-column;
+  gap: 16px;
   padding: 16px;
   box-shadow: $bs;
   cursor: pointer;

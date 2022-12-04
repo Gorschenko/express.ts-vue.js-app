@@ -23,6 +23,10 @@
     color: inherit;
   }
 
+  &_yellow {
+    color: $cl-yellow;
+  }
+
   &_hovered {
     transition: $tr-primary;
     
@@ -46,6 +50,10 @@
 
     &_danger:hover {
       color: $cl-danger;
+    }
+
+    &_yellow:hover {
+      color: $cl-yellow;;
     }
   }
 }

@@ -9,15 +9,22 @@ const getUser = async () => {
 
 const addCourseToCart = async courseId => {
   return await useHttp(
-    `/auth/add-course/${courseId}`,
+    `/auth/cart/${courseId}`,
     'POST',
   )
 }
 
 const deleteCourseToCart = async courseId => {
   return await useHttp(
-    `/auth/delete-course/${courseId}`,
+    `/auth/cart/${courseId}`,
     'DELETE',
+  )
+}
+
+const updateFavorite = async (type, courseId) => {
+  return await useHttp(
+    `/auth/favorite/${type}/${courseId}`,
+    'POST',
   )
 }
 
@@ -25,4 +32,5 @@ export {
   getUser,
   addCourseToCart,
   deleteCourseToCart,
+  updateFavorite,
 }

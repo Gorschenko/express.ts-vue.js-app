@@ -18,6 +18,7 @@
           v-for="course in courses"
           :key="course._id"
           :course="course"
+          @update-favorite="updateFavoriteHandler(course._id)"
           @add-to-cart="addCourseToCartHandler(course._id)"
           @delete-to-cart="deleteCourseToCartHandler(course._id)"
           @edit="setEdition(course)"
@@ -183,6 +184,14 @@ export default {
       }
     }
 
+    const updateFavoriteHandler = async courseId => {
+      try {
+        console.log(courseId)
+      } catch (e) {
+        notify({ type: 'error', title: 'Ошибка', text: e.message});
+      }
+    }
+
     init()
     return {
       modal,
@@ -196,6 +205,7 @@ export default {
       confirmDeleteCourse,
       deleteCourseHandler,
       createCourseHandler,
+      updateFavoriteHandler,
     }
   },
 }
