@@ -1,6 +1,8 @@
 <template>
   <section>
-    Orders
+    <ul>
+      
+    </ul>
   </section>
 </template>
 <script>

@@ -3,7 +3,6 @@ import { useHttp } from '@/common/http.middleware'
 const getUser = async () => {
   return await useHttp(
     '/auth/info',
-    'GET',
   )
 }
 
@@ -21,6 +20,12 @@ const deleteCourseToCart = async courseId => {
   )
 }
 
+const fetchCart = async () => {
+  return await useHttp(
+    `/auth/cart`,
+  )
+}
+
 const updateFavorite = async (type, courseId) => {
   return await useHttp(
     `/auth/favorites/${type}/${courseId}`,
@@ -33,4 +38,5 @@ export {
   addCourseToCart,
   deleteCourseToCart,
   updateFavorite,
+  fetchCart,
 }

@@ -63,7 +63,7 @@ import {
 } from '@/api/user.api'
 import { ref, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
-import { useNotification } from "@kyvg/vue3-notification";
+import { useNotification } from '@kyvg/vue3-notification';
 
 export default {
   name: 'CoursesCatalog',

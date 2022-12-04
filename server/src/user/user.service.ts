@@ -3,7 +3,7 @@ import e from 'express'
 import { inject, injectable } from 'inversify'
 import { ObjectId } from 'mongoose'
 import { IConfigService } from '../config/config.service.interface'
-import { IUserCartItem } from '../interfaces/user-cart.interface'
+import { IUserCart, IUserCartItem } from '../interfaces/user-cart.interface'
 import { TYPES } from '../types'
 import { UserLoginDto } from './dto/user-login.dto'
 import { UserRegisterDto } from './dto/user-register.dto'
@@ -84,6 +84,11 @@ export class UserService implements IUSerService {
       return await this.userRepository.update(user)
     }
     return null
+  }
+
+  async getCart(email: string): Promise<IUserCart | []> {
+    const user = await this.userRepository.find(email, 'cart.items._id')
+    return user ? user.cart : {}
   }
 
   async updateFavorites(email: string, type: string, courseId: string): Promise<User | null> {
