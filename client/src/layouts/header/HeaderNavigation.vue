@@ -27,16 +27,13 @@ const firstList = [
   {
     name: 'Курсы', value: 'courses',
   },
-  {
-    name: 'Акции', value: 'offers',
-  },
 ]
 const secondList = [
   {
-    name: 'Корзина', value: 'card',
+    name: 'Корзина', value: 'cart',
   },
   {
-    name: 'Избранное', value: 'favorite',
+    name: 'Заказы', value: 'orders',
   },
 ]
 export default {

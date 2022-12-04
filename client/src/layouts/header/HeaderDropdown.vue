@@ -63,6 +63,12 @@ export default {
         func: toRoute.bind(this, 'sign-up')
       },
       {
+        name: 'Профиль',
+        value: 'profile',
+        isAuthenticated: true,
+        func: toRoute.bind(this, 'profile'),
+      },
+      {
         name: 'Выйти',
         value: 'logout',
         isAuthenticated: true,

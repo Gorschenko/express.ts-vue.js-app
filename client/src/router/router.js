@@ -1,9 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import MainPage from '@/views/MainPage'
-import ProfilePage from '@/views/ProfilePage'
-import CardPage from '@/views/CardPage'
-import FavoritePage from '@/views/FavoritePage'
-import OffersPage from '@/views/OffersPage'
+import ProfilePage from '@/views/MainPage'
+import OrdersPage from '@/views/OrdersPage'
+import CartPage from '@/views/CartPage'
 
 import auth from '@/router/modules/auth.router'
 import courses from '@/router/modules/courses.router'
@@ -30,21 +29,15 @@ const routes = [
     meta,
   },
   {
-    path: '/card',
-    name: 'card',
-    component: CardPage,
+    path: '/orders',
+    name: 'orders',
+    component: OrdersPage,
     meta,
   },
   {
-    path: '/favorite',
-    name: 'favorite',
-    component: FavoritePage,
-    meta,
-  },
-  {
-    path: '/offers',
-    name: 'offers',
-    component: OffersPage,
+    path: '/cart',
+    name: 'cart',
+    component: CartPage,
     meta,
   },
 ]
