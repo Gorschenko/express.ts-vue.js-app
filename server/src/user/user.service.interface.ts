@@ -8,4 +8,5 @@ export interface IUSerService {
   getUserInfo: (email: string) => Promise<User | null>
   addCourse: (email: string, courseId: string) => Promise<User | null>
   deleteCourse: (email: string, courseId: string) => Promise<User | null>
+  updateFavorites: (email: string, type: string, courseId: string) => Promise<User | null>
 }

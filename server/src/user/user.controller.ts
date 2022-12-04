@@ -55,6 +55,12 @@ export class UserController extends BaseController implements IUserController {
           func: this.deleteCourse,
           middlewares: [new AuthGuard()],
         },
+        {
+          path: '/favorites/:type/:id',
+          method: 'post',
+          func: this.updateFavorites,
+          middlewares: [new AuthGuard()],
+        },
       ],
       '/auth',
     )
@@ -118,6 +124,18 @@ export class UserController extends BaseController implements IUserController {
     const result = await this.userService.deleteCourse(req.user.email, req.params.id)
     if (!result) {
       return next(new HTTPError(400, 'Ошибка', 'delete-course'))
+    }
+    this.ok(res, result)
+  }
+
+  async updateFavorites(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const result = await this.userService.updateFavorites(
+      req.user.email,
+      req.params.type,
+      req.params.id,
+    )
+    if (!result) {
+      return next(new HTTPError(400, 'Ошибка', 'favorites'))
     }
     this.ok(res, result)
   }

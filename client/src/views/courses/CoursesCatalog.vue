@@ -58,7 +58,8 @@ import {
 } from '@/api/courses.api'
 import {
   addCourseToCart,
-  deleteCourseToCart
+  deleteCourseToCart,
+  updateFavorite,
 } from '@/api/user.api'
 import { ref, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
@@ -186,7 +187,9 @@ export default {
 
     const updateFavoriteHandler = async courseId => {
       try {
-        console.log(courseId)
+        const updatedUser = await updateFavorite('courses', courseId)
+        store.commit('user/SET_USER', updatedUser)
+        notify({ type: 'success', title: 'Успешно', text: 'Избранное успешно обновлено'});
       } catch (e) {
         notify({ type: 'error', title: 'Ошибка', text: e.message});
       }

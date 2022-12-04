@@ -29,6 +29,14 @@ const userSchema: Schema = new Schema<User>({
       },
     ],
   },
+  favorites: {
+    courses: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Course',
+      },
+    ],
+  },
 })
 
 const UserModel = model<User>('User', userSchema)

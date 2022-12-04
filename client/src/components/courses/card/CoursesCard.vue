@@ -3,7 +3,8 @@
     <header class="flex-row-between flex-wrap flex-gap-8">
       <i
         :class="[
-          'bx bxs-star icon_24 color_neutral tr-primary color_hovered_yellow',
+          'bx bxs-star icon_24  tr-primary',
+          hasFavorite ? 'color_yellow' : 'color_neutral color_hovered_yellow'
         ]"
         @click="$emit('update-favorite')"
       />
@@ -39,6 +40,8 @@
 <script>
 import DefaultButton from '@/components/base/DefaultButton'
 import FooterCard from '@/components/courses/card/FooterCard'
+import { useStore } from 'vuex'
+import { computed } from 'vue'
 
 export default {
   name: 'CoursesCard',
@@ -59,5 +62,14 @@ export default {
       required: true,
     }
   },
+  setup(props) {
+    const store = useStore()
+    const hasFavorite = computed(
+      () => store.getters['user/user'].favorites.courses.find(i => i === props.course._id)
+    )
+    return {
+      hasFavorite,
+    }
+  }
 }
 </script>

@@ -1,6 +1,7 @@
 // В Сервисе только бизнес логика
 import e from 'express'
 import { inject, injectable } from 'inversify'
+import { ObjectId } from 'mongoose'
 import { IConfigService } from '../config/config.service.interface'
 import { IUserCartItem } from '../interfaces/user-cart.interface'
 import { TYPES } from '../types'
@@ -80,6 +81,21 @@ export class UserService implements IUSerService {
         })
         .filter((i) => i.count !== 0)
       user.cart.items = updatedItems
+      return await this.userRepository.update(user)
+    }
+    return null
+  }
+
+  async updateFavorites(email: string, type: string, courseId: string): Promise<User | null> {
+    const user = await this.userRepository.find(email)
+    if (user) {
+      const favorites = user.favorites
+      const hasItem = favorites[type].find((i) => i.toString() === courseId.toString())
+      if (hasItem) {
+        favorites[type] = favorites[type].filter((i) => i.toString() !== courseId.toString())
+      } else {
+        favorites[type].push(courseId as unknown as ObjectId)
+      }
       return await this.userRepository.update(user)
     }
     return null

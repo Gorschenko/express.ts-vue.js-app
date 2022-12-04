@@ -23,7 +23,7 @@ const deleteCourseToCart = async courseId => {
 
 const updateFavorite = async (type, courseId) => {
   return await useHttp(
-    `/auth/favorite/${type}/${courseId}`,
+    `/auth/favorites/${type}/${courseId}`,
     'POST',
   )
 }
