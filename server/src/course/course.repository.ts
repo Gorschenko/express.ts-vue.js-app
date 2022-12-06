@@ -1,3 +1,4 @@
+import e from 'express'
 import { inject, injectable } from 'inversify'
 import { Query } from 'mongoose'
 import CourseModel from '../database/models/course.models'
@@ -14,8 +15,12 @@ export class CourseRepository implements ICourseRepository {
     const newCourse = new CourseModel({ ...course })
     return await newCourse.save()
   }
-  async fetch(): Promise<Course[] | null> {
-    return await CourseModel.find()
+  async fetch(id?: string): Promise<Course[] | null> {
+    if (id) {
+      return await CourseModel.find({ _id: id })
+    } else {
+      return await CourseModel.find()
+    }
   }
   async delete(id: string): Promise<Query<{}, {}>> {
     return await CourseModel.deleteOne({ id })

@@ -35,9 +35,7 @@
     <DefaultModal v-model="modal.show">
       <component
         :is="modal.component"
-        :course="editCourseObj"
         @close="modal.show = false"
-        @edit="editCourseHandler"
         @create="createCourseHandler"
         @confirm="deleteCourseHandler"
       />
@@ -51,18 +49,18 @@ import DefaultModal from '@/components/base/DefaultModal'
 import ModalConfirmation from '@/components/modals/ModalConfirmation'
 import CoursesCreate from '@/components/courses/CoursesCreate'
 import {
-  getAllCourses,
+  getCourses,
   deleteCourse,
   createCourse,
-  editCourse,
 } from '@/api/courses.api'
 import {
   addCourseToCart,
   deleteCourseToCart,
   updateFavorite,
 } from '@/api/user.api'
-import { ref, reactive, watch } from 'vue'
+import { ref, reactive } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import { useNotification } from '@kyvg/vue3-notification';
 
 export default {
@@ -76,15 +74,12 @@ export default {
   },
   setup () {
     const store = useStore()
+    const router = useRouter()
     const { notify}  = useNotification()
     const modal = reactive({
       show: false,
       component: 'courses-create',
     })
-    watch(
-      () => modal.show,
-      value => value ? null : editCourseObj.value = {}
-    )
     const setModal = componentName => {
       modal.component = componentName
       modal.show = true
@@ -93,11 +88,12 @@ export default {
     const courses = ref([])
     const init = async () => {
       try {
-        courses.value = await getAllCourses()
+        courses.value = await getCourses()
       } catch (e) {
         notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
     }
+    init()
 
     const addCourseToCartHandler = async courseId => {
       try {
@@ -120,30 +116,15 @@ export default {
     }
 
 
-    const editCourseObj = ref({})
     const setEdition = async course => {
       try {
-        editCourseObj.value = course
-        setModal('courses-create')
-      } catch (e) {
-        notify({ type: 'error', title: 'Ошибка', text: e.message});
-      }
-    }
-    const editCourseHandler = async formData => {
-      try {
-        await editCourse(formData)
-        courses.value = courses.value.map(c => {
-          if (c._id === formData._id) {
-            return formData
+        router.push({
+          name: 'courses-info',
+          params: {
+            id: course._id,
           }
-          return c
         })
-        notify({
-          type: 'success',
-          title: 'Successfully',
-          text: 'The course has been successfully edited'
-        });
-        modal.show = false
+        
       } catch (e) {
         notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
@@ -195,16 +176,13 @@ export default {
       }
     }
 
-    init()
     return {
       modal,
       setModal,
       courses,
       addCourseToCartHandler,
       deleteCourseToCartHandler,
-      editCourseObj,
       setEdition,
-      editCourseHandler,
       confirmDeleteCourse,
       deleteCourseHandler,
       createCourseHandler,

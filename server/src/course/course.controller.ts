@@ -20,7 +20,7 @@ export class CourseController extends BaseController implements ICourseControlle
     this.bindRoutes(
       [
         {
-          path: '/',
+          path: '/:id?',
           method: 'get',
           func: this.fetch,
           middlewares: [],
@@ -48,7 +48,7 @@ export class CourseController extends BaseController implements ICourseControlle
     )
   }
   async fetch(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const result = await this.courseService.fetch()
+    const result = await this.courseService.fetch(req.params.id)
     this.ok(res, result)
   }
 

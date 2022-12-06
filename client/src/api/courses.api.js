@@ -15,9 +15,9 @@ const editCourse = async formData => {
     formData,
   )
 }
-const getAllCourses = async () => {
+const getCourses = async (id = '') => {
   return await useHttp(
-    '/courses'
+    `/courses/${id}`,
   )
 }
 
@@ -31,6 +31,6 @@ const deleteCourse = async id => {
 export {
   createCourse,
   editCourse,
-  getAllCourses,
+  getCourses,
   deleteCourse,
 }

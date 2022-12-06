@@ -16,8 +16,8 @@ export class CourseService implements ICourseService {
     return this.courseRepository.create(newCourse)
   }
 
-  async fetch(): Promise<Course[] | null> {
-    return await this.courseRepository.fetch()
+  async fetch(id?: string): Promise<Course[] | null> {
+    return await this.courseRepository.fetch(id)
   }
 
   async delete(id: string): Promise<Boolean> {

@@ -2,8 +2,7 @@
   <div class="create-courses-modal">
     <Form
       :validation-schema="validationSchema"
-      :initial-values="initialValues"
-      @submit="isEditMode ? $emit('edit', $event) : $emit('create', $event)"
+      @submit="$emit('create', $event)"
     >
       <DefaultInput
         class="mb-16"
@@ -23,8 +22,8 @@
       <DefaultButton
         class="margin-right"
         type="submit"
-        :title="isEditMode ? 'Edit' : 'Create'"
-        :icon="isEditMode ? 'bx-edit-alt' : 'bx-plus'"
+        title="Create"
+        icon="bx-plus"
       />
     </Form>
   </div>
@@ -34,7 +33,6 @@ import DefaultInput from '@/components/base/DefaultInput'
 import DefaultButton from '@/components/base/DefaultButton'
 import { Form } from 'vee-validate'
 import * as Yup from 'yup'
-import { computed } from 'vue'
 
 export default {
   name: 'CoursesCreate',
@@ -43,15 +41,8 @@ export default {
     DefaultButton,
     Form,
   },
-  props: {
-    course: {
-      type: Object,
-      default: () => {}
-    }
-  },
-  setup (props) {
-    const isEditMode = computed(() => props.course._id)
-    const initialValues = props.course
+
+  setup () {
     const validationSchema = Yup.object().shape({
       title: Yup.string().required(),
       image: Yup.string().url().required(),
@@ -59,8 +50,6 @@ export default {
     })
 
     return {
-      isEditMode,
-      initialValues,
       validationSchema,
     }
   }
