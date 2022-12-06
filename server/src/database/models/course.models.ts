@@ -14,6 +14,26 @@ const courseSchema: Schema = new Schema<Course>({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    default: '',
+  },
+  category: {
+    type: String,
+    default: '',
+  },
+  level: {
+    type: String,
+    default: '',
+  },
+  rating: {
+    type: Number,
+    default: 0,
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
 })
 
 const CourseModel = model<Course>('Course', courseSchema)
