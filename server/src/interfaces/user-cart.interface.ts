@@ -1,6 +1,7 @@
 import { Schema } from 'mongoose'
 
 export interface IUserCart {
+  _id?: Schema.Types.ObjectId | string
   items?: IUserCartItem[]
 }
 

@@ -39,12 +39,12 @@ export class UserController extends BaseController implements IUserController {
           func: this.deleteCourse,
           middlewares: [new AuthGuard()],
         },
-        {
-          path: '/cart',
-          method: 'get',
-          func: this.fetchCart,
-          middlewares: [new AuthGuard()],
-        },
+        // {
+        //   path: '/cart',
+        //   method: 'get',
+        //   func: this.fetchCart,
+        //   middlewares: [new AuthGuard()],
+        // },
         {
           path: '/favorites/:type/:id',
           method: 'post',
@@ -77,13 +77,13 @@ export class UserController extends BaseController implements IUserController {
     this.ok(res, result)
   }
 
-  async fetchCart(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const result = await this.userService.getCart(req.user.email)
-    if (!result) {
-      return next(new HTTPError(400, 'Ошибка', 'fetch-cart'))
-    }
-    this.ok(res, result)
-  }
+  // async fetchCart(req: Request, res: Response, next: NextFunction): Promise<void> {
+  //   const result = await this.userService.getCart(req.user.email)
+  //   if (!result) {
+  //     return next(new HTTPError(400, 'Ошибка', 'fetch-cart'))
+  //   }
+  //   this.ok(res, result)
+  // }
 
   async updateFavorites(req: Request, res: Response, next: NextFunction): Promise<void> {
     const result = await this.userService.updateFavorites(

@@ -15,19 +15,10 @@ const userSchema: Schema = new Schema<User>({
     required: true,
   },
   cart: {
-    items: [
-      {
-        count: {
-          type: Number,
-          required: true,
-        },
-        _id: {
-          type: Schema.Types.ObjectId,
-          ref: 'Course',
-          required: true,
-        },
-      },
-    ],
+    cartId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Cart',
+    },
   },
   favorites: {
     courses: [

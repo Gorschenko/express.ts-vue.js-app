@@ -12,6 +12,7 @@ import { MongoService } from './database/mongo.service'
 import { AuthMiddleware } from './common/auth.middleware'
 import { CourseController } from './course/course.controller'
 import { AuthController } from './auth/auth.controller'
+import { CartController } from './cart/cart.controller'
 
 @injectable()
 export class App {
@@ -20,10 +21,12 @@ export class App {
   server: Server
 
   constructor(
-    @inject(TYPES.ILogger) private logger: ILogger,
+    @inject(TYPES.CartController) private cartController: CartController,
     @inject(TYPES.AuthController) private authController: AuthController,
     @inject(TYPES.UserController) private userController: UserController,
     @inject(TYPES.CourseController) private courseController: CourseController,
+
+    @inject(TYPES.ILogger) private logger: ILogger,
     @inject(TYPES.ExeptionFilter) private exeptionFilter: IExeptionFilter,
     @inject(TYPES.ConfigService) private configService: IConfigService,
     @inject(TYPES.MongoService) private mongoService: MongoService,
@@ -40,6 +43,7 @@ export class App {
   }
 
   useRoutes(): void {
+    this.app.use('/cart', this.cartController.router)
     this.app.use('/entry', this.authController.router)
     this.app.use('/auth', this.userController.router)
     this.app.use('/courses', this.courseController.router)

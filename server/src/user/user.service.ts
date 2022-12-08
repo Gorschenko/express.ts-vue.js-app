@@ -86,10 +86,10 @@ export class UserService implements IUSerService {
     return null
   }
 
-  async getCart(email: string): Promise<IUserCart | []> {
-    const user = await this.userRepository.find(email, 'cart.items._id')
-    return user ? user.cart : {}
-  }
+  // async getCart(email: string): Promise<IUserCart | []> {
+  //   const user = await this.userRepository.find(email, 'cart.items._id')
+  //   return user ? user.cart : {}
+  // }
 
   async updateFavorites(email: string, type: string, courseId: string): Promise<User | null> {
     const user = await this.userRepository.find(email)
