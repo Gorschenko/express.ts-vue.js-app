@@ -1,5 +1,7 @@
 import { Container, ContainerModule, interfaces } from 'inversify'
 import { App } from './app'
+import { AuthController } from './auth/auth.controller'
+import { IAuthController } from './auth/auth.controller.interface'
 import { ConfigService } from './config/config.service'
 import { IConfigService } from './config/config.service.interface'
 import { CourseController } from './course/course.controller'
@@ -24,6 +26,7 @@ import { IUSerService } from './user/user.service.interface'
 // Положили в контейнер информации о том, что для ILogger будет соответствовать LoggerService
 // Если мы будем делать inject по token = TYPES.ILogger, то мы должны взять инстанс LoggerService и положить туда
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
+  bind<IAuthController>(TYPES.AuthController).to(AuthController)
   bind<IUserController>(TYPES.UserController).to(UserController)
   bind<ICourseController>(TYPES.CourseController).to(CourseController)
   bind<IUSerService>(TYPES.UserService).to(UserService)
