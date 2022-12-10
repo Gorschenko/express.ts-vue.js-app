@@ -19,37 +19,37 @@ export class UserService implements IUSerService {
     @inject(TYPES.UserRepository) private userRepository: IUserRepository,
     @inject(TYPES.CartRepository) private cartRepository: ICartRepository,
   ) {}
-  async createUser({ email, password, name }: AuthRegisterDto): Promise<boolean | null> {
+  // +
+  async createUser({ email, password, name }: AuthRegisterDto): Promise<boolean> {
     const existedUser = await this.userRepository.find(email)
     if (existedUser) {
-      return null
+      return false
     }
-    const newCart = await this.cartRepository.create()
-    if (newCart) {
-      const newUser = new User(email, name, '', newCart)
-      const salt = this.configService.get('SALT')
-      await newUser.setPassword(password, Number(salt))
-      this.userRepository.create(newUser)
-      return true
-    }
-    return null
-  }
 
+    const newCart = await this.cartRepository.create()
+    if (!newCart) {
+      return false
+    }
+    const newUser = new User(email, name, '')
+    newUser.setCart(newCart)
+    const salt = this.configService.get('SALT')
+    await newUser.setPassword(password, salt)
+    const createdUser = await this.userRepository.create(newUser)
+    if (!createdUser) {
+      return false
+    }
+    return true
+  }
+  // +
   async validateUser(body: AuthLoginDto): Promise<boolean> {
     const existedUser = await this.userRepository.find(body.email, '', true)
-    console.log(existedUser)
     if (!existedUser) {
       return false
     }
-    const newUser = new User(
-      existedUser.email,
-      existedUser.name,
-      existedUser.password,
-      existedUser.cart,
-    )
+    const newUser = new User(existedUser.email, existedUser.name, existedUser.password)
     return newUser.comparePasswrod(body.password)
   }
-
+  // +
   async getUserInfo(email: string): Promise<User | null> {
     return this.userRepository.find(email)
   }
@@ -104,18 +104,18 @@ export class UserService implements IUSerService {
   //   return user ? user.cart : {}
   // }
 
-  async updateFavorites(email: string, type: string, courseId: string): Promise<User | null> {
-    const user = await this.userRepository.find(email)
-    if (user) {
-      const favorites = user.favorites
-      const hasItem = favorites[type].find((i) => i.toString() === courseId.toString())
-      if (hasItem) {
-        favorites[type] = favorites[type].filter((i) => i.toString() !== courseId.toString())
-      } else {
-        favorites[type].push(courseId as unknown as ObjectId)
-      }
-      return await this.userRepository.update(user)
-    }
-    return null
-  }
+  // async updateFavorites(email: string, type: string, courseId: string): Promise<User | null> {
+  //   const user = await this.userRepository.find(email)
+  //   if (user) {
+  //     const favorites = user.favorites
+  //     const hasItem = favorites[type].find((i) => i.toString() === courseId.toString())
+  //     if (hasItem) {
+  //       favorites[type] = favorites[type].filter((i) => i.toString() !== courseId.toString())
+  //     } else {
+  //       favorites[type].push(courseId as unknown as ObjectId)
+  //     }
+  //     return await this.userRepository.update(user)
+  //   }
+  //   return null
+  // }
 }

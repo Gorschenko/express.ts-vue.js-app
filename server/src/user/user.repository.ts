@@ -5,22 +5,21 @@ import { User } from './user.entity'
 import { IUserRepository } from './user.repository.interface'
 import UserModel from '../database/models/user.model'
 import { IUserModel } from '../interfaces/user-model.interface'
-import { Model } from 'mongoose'
-import { Cart } from '../cart/cart.entity'
 
 @injectable()
 export class UserRepository implements IUserRepository {
   constructor(@inject(TYPES.MongoService) private mongoService: MongoService) {}
-  async create(user: User): Promise<boolean> {
+  // +
+  async create(user: User): Promise<User | null> {
     const newUser = new UserModel({
       email: user.email,
       name: user.name,
       password: user.password,
       cart: user.cart,
     })
-    await newUser.save()
-    return true
+    return await newUser.save()
   }
+  // +
   async find(email: string, populate = '', hasPassword = false): Promise<User | null> {
     if (hasPassword) {
       return await UserModel.findOne({ email }).populate(populate)
@@ -28,6 +27,7 @@ export class UserRepository implements IUserRepository {
       return await UserModel.findOne({ email }, '-password').populate(populate)
     }
   }
+
   async update(user: IUserModel, populate = ''): Promise<User | null> {
     const result = await UserModel.findByIdAndUpdate(user._id, user, {
       new: true,

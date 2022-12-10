@@ -22,7 +22,7 @@ export class UserController extends BaseController implements IUserController {
     this.bindRoutes(
       [
         {
-          path: '/info',
+          path: '/',
           method: 'get',
           func: this.info,
           middlewares: [new AuthGuard()],
@@ -45,17 +45,18 @@ export class UserController extends BaseController implements IUserController {
         //   func: this.fetchCart,
         //   middlewares: [new AuthGuard()],
         // },
-        {
-          path: '/favorites/:type/:id',
-          method: 'post',
-          func: this.updateFavorites,
-          middlewares: [new AuthGuard()],
-        },
+        // {
+        //   path: '/favorites/:type/:id',
+        //   method: 'post',
+        //   func: this.updateFavorites,
+        //   middlewares: [new AuthGuard()],
+        // },
       ],
       '/auth',
     )
   }
 
+  // =
   async info(req: Request, res: Response, next: NextFunction): Promise<void> {
     const userInfo = await this.userService.getUserInfo(req.user.email)
     this.ok(res, userInfo)
@@ -85,15 +86,15 @@ export class UserController extends BaseController implements IUserController {
   //   this.ok(res, result)
   // }
 
-  async updateFavorites(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const result = await this.userService.updateFavorites(
-      req.user.email,
-      req.params.type,
-      req.params.id,
-    )
-    if (!result) {
-      return next(new HTTPError(400, 'Ошибка', 'favorites'))
-    }
-    this.ok(res, result)
-  }
+  // async updateFavorites(req: Request, res: Response, next: NextFunction): Promise<void> {
+  //   const result = await this.userService.updateFavorites(
+  //     req.user.email,
+  //     req.params.type,
+  //     req.params.id,
+  //   )
+  //   if (!result) {
+  //     return next(new HTTPError(400, 'Ошибка', 'favorites'))
+  //   }
+  //   this.ok(res, result)
+  // }
 }

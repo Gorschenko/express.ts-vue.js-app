@@ -38,7 +38,7 @@ export class AuthController extends BaseController implements IAuthController {
       '/entry',
     )
   }
-
+  // +
   async login(
     req: Request<{}, {}, AuthLoginDto>,
     res: Response,
@@ -67,7 +67,7 @@ export class AuthController extends BaseController implements IAuthController {
       )
     })
   }
-
+  // +
   async register(
     req: Request<{}, {}, AuthRegisterDto>,
     res: Response,

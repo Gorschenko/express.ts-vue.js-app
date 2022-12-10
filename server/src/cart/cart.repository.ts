@@ -22,7 +22,6 @@ export class CartRepository implements ICartRepository {
 
   async create(): Promise<Cart | null> {
     const newCart = new CartModel()
-    await newCart.save()
-    return newCart
+    return await newCart.save()
   }
 }
