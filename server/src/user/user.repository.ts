@@ -6,16 +6,22 @@ import { IUserRepository } from './user.repository.interface'
 import UserModel from '../database/models/user.model'
 import { IUserModel } from '../interfaces/user-model.interface'
 import { Model } from 'mongoose'
+import { Cart } from '../cart/cart.entity'
 
 @injectable()
 export class UserRepository implements IUserRepository {
   constructor(@inject(TYPES.MongoService) private mongoService: MongoService) {}
   async create(user: User): Promise<boolean> {
-    const newUser = new UserModel({ email: user.email, name: user.name, password: user.password })
+    const newUser = new UserModel({
+      email: user.email,
+      name: user.name,
+      password: user.password,
+      cart: user.cart,
+    })
     await newUser.save()
     return true
   }
-  async find(email: string, populate = '', hasPassword = false): Promise<IUserModel | null> {
+  async find(email: string, populate = '', hasPassword = false): Promise<User | null> {
     if (hasPassword) {
       return await UserModel.findOne({ email }).populate(populate)
     } else {

@@ -1,20 +1,24 @@
 import { compare, hash } from 'bcryptjs'
+import { Cart } from '../cart/cart.entity'
 import { IUserCart } from '../interfaces/user-cart.interface'
 import { IUserFavorites } from '../interfaces/user-favorites.interface'
 export class User {
   private _password: string
-  private _cart: IUserCart
+  private _cart: Cart
   private _favorites: IUserFavorites
 
   constructor(
     private readonly _email: string,
     private readonly _name: string,
     hashPassword?: string,
+    cart?: Cart,
   ) {
     if (hashPassword) {
       this._password = hashPassword
     }
-    this._cart = {}
+    if (cart) {
+      this._cart = cart
+    }
     this._favorites = {}
   }
 
@@ -30,7 +34,7 @@ export class User {
     return this._password
   }
 
-  get cart(): IUserCart {
+  get cart(): Cart {
     return this._cart
   }
 

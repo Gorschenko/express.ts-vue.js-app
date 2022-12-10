@@ -4,6 +4,7 @@ import { inject, injectable } from 'inversify'
 import { ObjectId } from 'mongoose'
 import { AuthLoginDto } from '../auth/dto/auth-login.dto'
 import { AuthRegisterDto } from '../auth/dto/auth-register.dto'
+import { ICartRepository } from '../cart/cart.repository.interface'
 import { IConfigService } from '../config/config.service.interface'
 import { IUserCart, IUserCartItem } from '../interfaces/user-cart.interface'
 import { TYPES } from '../types'
@@ -16,24 +17,36 @@ export class UserService implements IUSerService {
   constructor(
     @inject(TYPES.ConfigService) private configService: IConfigService,
     @inject(TYPES.UserRepository) private userRepository: IUserRepository,
+    @inject(TYPES.CartRepository) private cartRepository: ICartRepository,
   ) {}
   async createUser({ email, password, name }: AuthRegisterDto): Promise<boolean | null> {
-    const newUser = new User(email, name)
-    const salt = this.configService.get('SALT')
-    await newUser.setPassword(password, Number(salt))
     const existedUser = await this.userRepository.find(email)
     if (existedUser) {
       return null
     }
-    return this.userRepository.create(newUser)
+    const newCart = await this.cartRepository.create()
+    if (newCart) {
+      const newUser = new User(email, name, '', newCart)
+      const salt = this.configService.get('SALT')
+      await newUser.setPassword(password, Number(salt))
+      this.userRepository.create(newUser)
+      return true
+    }
+    return null
   }
 
   async validateUser(body: AuthLoginDto): Promise<boolean> {
     const existedUser = await this.userRepository.find(body.email, '', true)
+    console.log(existedUser)
     if (!existedUser) {
       return false
     }
-    const newUser = new User(existedUser.email, existedUser.name, existedUser.password)
+    const newUser = new User(
+      existedUser.email,
+      existedUser.name,
+      existedUser.password,
+      existedUser.cart,
+    )
     return newUser.comparePasswrod(body.password)
   }
 

@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose'
+import { Schema, Types } from 'mongoose'
 
 export interface IUserCartItem {
   count: number
@@ -9,14 +9,7 @@ export class Cart {
   user: object
   items: IUserCartItem[]
 
-  constructor(public readonly userId: string, item?: IUserCartItem) {
-    if (item) {
-      this.user = {
-        _id: userId,
-      }
-      this.items = [item]
-    }
-  }
+  constructor(public readonly _id: Schema.Types.ObjectId, items: IUserCartItem) {}
   // addItem(courseId: string): void {
   //   if (this.items.length) {
   //     const isAddedCourse = this.items.some(
