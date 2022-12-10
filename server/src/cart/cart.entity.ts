@@ -6,48 +6,52 @@ export interface IUserCartItem {
 }
 
 export class Cart {
-  _id: string
-  constructor(public items: IUserCartItem[], id?: string) {
-    if (id) {
-      this._id = id
-    }
-  }
+  user: object
+  items: IUserCartItem[]
 
-  addItem(courseId: string): void {
-    if (this.items.length) {
-      const isAddedCourse = this.items.some(
-        (i: IUserCartItem) => i._id.toString() === courseId.toString(),
-      )
-      if (isAddedCourse) {
-        this.items = this.items.map((i: IUserCartItem) => {
-          if (i._id.toString() === courseId.toString()) {
-            i.count = i.count + 1
-          }
-          return i
-        })
-      } else {
-        this.items.push({
-          _id: courseId,
-          count: 1,
-        })
+  constructor(public readonly userId: string, item?: IUserCartItem) {
+    if (item) {
+      this.user = {
+        _id: userId,
       }
-    } else {
-      this.items = [
-        {
-          _id: courseId,
-          count: 1,
-        },
-      ]
+      this.items = [item]
     }
   }
-  deleteItem(courseId: string): void {
-    this.items = this.items
-      .map((i: IUserCartItem) => {
-        if (i._id.toString() === courseId.toString()) {
-          i.count = i.count - 1
-        }
-        return i
-      })
-      .filter((i: IUserCartItem) => i.count !== 0)
-  }
+  // addItem(courseId: string): void {
+  //   if (this.items.length) {
+  //     const isAddedCourse = this.items.some(
+  //       (i: IUserCartItem) => i._id.toString() === courseId.toString(),
+  //     )
+  //     if (isAddedCourse) {
+  //       this.items = this.items.map((i: IUserCartItem) => {
+  //         if (i._id.toString() === courseId.toString()) {
+  //           i.count = i.count + 1
+  //         }
+  //         return i
+  //       })
+  //     } else {
+  //       this.items.push({
+  //         _id: courseId,
+  //         count: 1,
+  //       })
+  //     }
+  //   } else {
+  //     this.items = [
+  //       {
+  //         _id: courseId,
+  //         count: 1,
+  //       },
+  //     ]
+  //   }
+  // }
+  // deleteItem(courseId: string): void {
+  //   this.items = this.items
+  //     .map((i: IUserCartItem) => {
+  //       if (i._id.toString() === courseId.toString()) {
+  //         i.count = i.count - 1
+  //       }
+  //       return i
+  //     })
+  //     .filter((i: IUserCartItem) => i.count !== 0)
+  // }
 }

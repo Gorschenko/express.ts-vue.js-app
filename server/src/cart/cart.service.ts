@@ -14,25 +14,39 @@ export class CartService implements ICartService {
 
   async add(email: string, courseId: string): Promise<boolean> {
     const user = await this.userRepository.find(email)
-    if (user?.cart.items) {
-      const cart = new Cart(user.cart.items, user.cart._id?.toString())
-      cart.addItem(courseId)
-      return true
+    if (user) {
+      const cart = await this.cartRepository.find(user._id.toString())
+      if (cart) {
+        return true
+      } else {
+        const item = {
+          _id: courseId,
+          count: 1,
+        }
+        const cart = new Cart(user._id.toString(), item)
+        const newCart = await this.cartRepository.create(cart)
+        console.log(newCart)
+        return true
+      }
     }
     return false
   }
 
-  async delete(email: string, courseId: string): Promise<boolean> {
+  // async delete(email: string, courseId: string): Promise<boolean> {
+  //   const user = await this.userRepository.find(email)
+  //   if (user?.cart.items) {
+  //     const cart = new Cart(user.cart.items, user.cart._id?.toString())
+  //     cart.deleteItem(courseId)
+  //     return true
+  //   }
+  //   return false
+  // }
+
+  async get(email: string): Promise<Cart | null> {
     const user = await this.userRepository.find(email)
-    if (user?.cart.items) {
-      const cart = new Cart(user.cart.items, user.cart._id?.toString())
-      cart.deleteItem(courseId)
-      return true
+    if (user) {
+      return await this.cartRepository.find(user._id.toString())
     }
-    return false
-  }
-
-  async fetch(id: string): Promise<Cart | null> {
-    return await this.cartRepository.fetch(id)
+    return null
   }
 }

@@ -23,16 +23,16 @@ export class CartController extends BaseController implements ICartController {
           func: this.add,
           middlewares: [new AuthGuard()],
         },
+        // {
+        //   path: '/:id',
+        //   method: 'delete',
+        //   func: this.delete,
+        //   middlewares: [new AuthGuard()],
+        // },
         {
-          path: '/:id',
-          method: 'delete',
-          func: this.delete,
-          middlewares: [new AuthGuard()],
-        },
-        {
-          path: '/cart',
+          path: '/',
           method: 'get',
-          func: this.fetch,
+          func: this.get,
           middlewares: [new AuthGuard()],
         },
       ],
@@ -48,18 +48,18 @@ export class CartController extends BaseController implements ICartController {
     this.ok(res, result)
   }
 
-  async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const result = await this.cartService.delete(req.user.email, req.params.id)
-    if (!result) {
-      return next(new HTTPError(400, 'Ошибка', 'delete-course'))
-    }
-    this.ok(res, result)
-  }
+  // async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
+  //   const result = await this.cartService.delete(req.user.email, req.params.id)
+  //   if (!result) {
+  //     return next(new HTTPError(400, 'Ошибка', 'delete-course'))
+  //   }
+  //   this.ok(res, result)
+  // }
 
-  async fetch(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const result = await this.cartService.fetch(req.params.id)
+  async get(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const result = await this.cartService.get(req.user.email)
     if (!result) {
-      return next(new HTTPError(400, 'Ошибка', 'fetch-cart'))
+      return next(new HTTPError(400, 'Ошибка', 'get-cart'))
     }
     this.ok(res, result)
   }

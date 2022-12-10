@@ -5,6 +5,7 @@ import { User } from './user.entity'
 import { IUserRepository } from './user.repository.interface'
 import UserModel from '../database/models/user.model'
 import { IUserModel } from '../interfaces/user-model.interface'
+import { Model } from 'mongoose'
 
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -14,7 +15,7 @@ export class UserRepository implements IUserRepository {
     await newUser.save()
     return true
   }
-  async find(email: string, populate = '', hasPassword = false): Promise<User | null> {
+  async find(email: string, populate = '', hasPassword = false): Promise<IUserModel | null> {
     if (hasPassword) {
       return await UserModel.findOne({ email }).populate(populate)
     } else {

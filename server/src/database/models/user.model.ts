@@ -14,12 +14,6 @@ const userSchema: Schema = new Schema<User>({
     type: String,
     required: true,
   },
-  cart: {
-    cartId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Cart',
-    },
-  },
   favorites: {
     courses: [
       {

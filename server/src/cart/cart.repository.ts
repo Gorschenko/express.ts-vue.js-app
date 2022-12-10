@@ -9,13 +9,18 @@ import { ICartRepository } from './cart.repository.interface'
 export class CartRepository implements ICartRepository {
   constructor(@inject(TYPES.MongoService) private mongoService: MongoService) {}
 
-  async update(cart: Cart, populate = ''): Promise<Cart | null> {
-    return await CartModel.findByIdAndUpdate(cart._id, cart, {
-      new: true,
-    }).populate(populate)
+  // async update(cart: Cart, populate = ''): Promise<Cart | null> {
+  //   return await CartModel.findByIdAndUpdate(cart._id, cart, {
+  //     new: true,
+  //   }).populate(populate)
+  // }
+
+  async find(id: string): Promise<Cart | null> {
+    return await CartModel.findOne({ id })
   }
 
-  async fetch(id: string, populate = ''): Promise<Cart | null> {
-    return await CartModel.findOne({ id }).populate(populate)
+  async create(cart: Cart): Promise<Cart | null> {
+    const newCart = new CartModel({ user: cart.user, items: cart.items })
+    return await newCart.save()
   }
 }
