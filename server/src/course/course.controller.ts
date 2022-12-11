@@ -47,8 +47,12 @@ export class CourseController extends BaseController implements ICourseControlle
       '/courses',
     )
   }
+
   async fetch(req: Request, res: Response, next: NextFunction): Promise<void> {
     const result = await this.courseService.fetch(req.params.id)
+    if (!result) {
+      return next(new HTTPError(400, 'Ошибка', 'course'))
+    }
     this.ok(res, result)
   }
 
@@ -58,11 +62,17 @@ export class CourseController extends BaseController implements ICourseControlle
     next: NextFunction,
   ): Promise<void> {
     const result = await this.courseService.create(req.body)
+    if (!result) {
+      return next(new HTTPError(400, 'Ошибка', 'create'))
+    }
     this.ok(res, result)
   }
 
   async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
     const result = await this.courseService.delete(req.params.id)
+    if (!result) {
+      return next(new HTTPError(400, 'Ошибка', 'delete'))
+    }
     this.ok(res, result)
   }
 
@@ -72,6 +82,9 @@ export class CourseController extends BaseController implements ICourseControlle
     next: NextFunction,
   ): Promise<void> {
     const result = await this.courseService.edit(req.body)
+    if (!result) {
+      return next(new HTTPError(400, 'Ошибка', 'edit'))
+    }
     this.ok(res, result)
   }
 }

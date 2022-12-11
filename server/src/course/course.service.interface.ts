@@ -4,7 +4,7 @@ import { CourseEditDto } from './dto/course-edit.dto'
 
 export interface ICourseService {
   fetch(id?: string): Promise<Course[] | null>
-  create(dto: CourseCreateDto): Promise<Course>
+  create(dto: CourseCreateDto): Promise<Course | null>
   delete(id: string): Promise<Boolean>
-  edit(dto: CourseEditDto): Promise<Boolean>
+  edit(dto: CourseEditDto): Promise<Course | null>
 }
