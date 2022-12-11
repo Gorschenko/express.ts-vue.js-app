@@ -54,56 +54,6 @@ export class UserService implements IUSerService {
     return this.userRepository.find(email)
   }
 
-  // async addCourse(email: string, courseId: string): Promise<User | null> {
-  //   const user = await this.userRepository.find(email)
-  //   if (user) {
-  //     if (user.cart.items) {
-  //       const idx = user.cart.items.findIndex(
-  //         (i: IUserCartItem) => i._id.toString() === courseId.toString(),
-  //       )
-  //       if (idx >= 0) {
-  //         user.cart.items[idx].count = user.cart.items[idx].count + 1
-  //       } else {
-  //         user.cart.items.push({
-  //           _id: courseId,
-  //           count: 1,
-  //         })
-  //       }
-  //     } else {
-  //       user.cart.items = [
-  //         {
-  //           _id: courseId,
-  //           count: 1,
-  //         },
-  //       ]
-  //     }
-  //     return await this.userRepository.update(user)
-  //   }
-  //   return null
-  // }
-
-  // async deleteCourse(email: string, courseId: string): Promise<User | null> {
-  //   const user = await this.userRepository.find(email)
-  //   if (user) {
-  //     const updatedItems = user.cart.items
-  //       ?.map((i) => {
-  //         if (i._id.toString() === courseId.toString()) {
-  //           i.count = i.count - 1
-  //         }
-  //         return i
-  //       })
-  //       .filter((i) => i.count !== 0)
-  //     user.cart.items = updatedItems
-  //     return await this.userRepository.update(user)
-  //   }
-  //   return null
-  // }
-
-  // async getCart(email: string): Promise<IUserCart | []> {
-  //   const user = await this.userRepository.find(email, 'cart.items._id')
-  //   return user ? user.cart : {}
-  // }
-
   // async updateFavorites(email: string, type: string, courseId: string): Promise<User | null> {
   //   const user = await this.userRepository.find(email)
   //   if (user) {

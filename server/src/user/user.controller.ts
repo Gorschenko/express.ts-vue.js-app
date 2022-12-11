@@ -28,24 +28,6 @@ export class UserController extends BaseController implements IUserController {
           middlewares: [new AuthGuard()],
         },
         // {
-        //   path: '/cart/:id',
-        //   method: 'post',
-        //   func: this.addCourse,
-        //   middlewares: [new AuthGuard()],
-        // },
-        // {
-        //   path: '/cart/:id',
-        //   method: 'delete',
-        //   func: this.deleteCourse,
-        //   middlewares: [new AuthGuard()],
-        // },
-        // {
-        //   path: '/cart',
-        //   method: 'get',
-        //   func: this.fetchCart,
-        //   middlewares: [new AuthGuard()],
-        // },
-        // {
         //   path: '/favorites/:type/:id',
         //   method: 'post',
         //   func: this.updateFavorites,
@@ -61,30 +43,6 @@ export class UserController extends BaseController implements IUserController {
     const userInfo = await this.userService.getUserInfo(req.user.email)
     this.ok(res, userInfo)
   }
-
-  // async addCourse(req: Request, res: Response, next: NextFunction): Promise<void> {
-  //   const result = await this.userService.addCourse(req.user.email, req.params.id)
-  //   if (!result) {
-  //     return next(new HTTPError(400, 'Ошибка', 'add-course'))
-  //   }
-  //   this.ok(res, result)
-  // }
-
-  // async deleteCourse(req: Request, res: Response, next: NextFunction): Promise<void> {
-  //   const result = await this.userService.deleteCourse(req.user.email, req.params.id)
-  //   if (!result) {
-  //     return next(new HTTPError(400, 'Ошибка', 'delete-course'))
-  //   }
-  //   this.ok(res, result)
-  // }
-
-  // async fetchCart(req: Request, res: Response, next: NextFunction): Promise<void> {
-  //   const result = await this.userService.getCart(req.user.email)
-  //   if (!result) {
-  //     return next(new HTTPError(400, 'Ошибка', 'fetch-cart'))
-  //   }
-  //   this.ok(res, result)
-  // }
 
   // async updateFavorites(req: Request, res: Response, next: NextFunction): Promise<void> {
   //   const result = await this.userService.updateFavorites(
