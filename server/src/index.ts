@@ -2,12 +2,12 @@ import { Container, ContainerModule, interfaces } from 'inversify'
 import { App } from './app'
 import { AuthController } from './auth/auth.controller'
 import { IAuthController } from './auth/auth.controller.interface'
-// import { CartController } from './cart/cart.controller'
-// import { ICartController } from './cart/cart.controller.interface'
+import { CartController } from './cart/cart.controller'
+import { ICartController } from './cart/cart.controller.interface'
 import { CartRepository } from './cart/cart.repository'
 import { ICartRepository } from './cart/cart.repository.interface'
-// import { CartService } from './cart/cart.service'
-// import { ICartService } from './cart/cart.service.interface'
+import { CartService } from './cart/cart.service'
+import { ICartService } from './cart/cart.service.interface'
 import { ConfigService } from './config/config.service'
 import { IConfigService } from './config/config.service.interface'
 import { CourseController } from './course/course.controller'
@@ -32,14 +32,14 @@ import { IUSerService } from './user/user.service.interface'
 // Положили в контейнер информации о том, что для ILogger будет соответствовать LoggerService
 // Если мы будем делать inject по token = TYPES.ILogger, то мы должны взять инстанс LoggerService и положить туда
 export const appBindings = new ContainerModule((bind: interfaces.Bind) => {
-  // bind<ICartController>(TYPES.CartController).to(CartController)
+  bind<ICartController>(TYPES.CartController).to(CartController)
   bind<IAuthController>(TYPES.AuthController).to(AuthController)
   bind<IUserController>(TYPES.UserController).to(UserController)
   bind<ICourseController>(TYPES.CourseController).to(CourseController)
 
   bind<IUSerService>(TYPES.UserService).to(UserService)
   bind<ICourseService>(TYPES.CourseService).to(CourseService)
-  // bind<ICartService>(TYPES.CartService).to(CartService)
+  bind<ICartService>(TYPES.CartService).to(CartService)
 
   bind<ICartRepository>(TYPES.CartRepository).to(CartRepository).inSingletonScope()
   bind<IUserRepository>(TYPES.UserRepository).to(UserRepository).inSingletonScope()

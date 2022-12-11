@@ -27,18 +27,18 @@ export class UserController extends BaseController implements IUserController {
           func: this.info,
           middlewares: [new AuthGuard()],
         },
-        {
-          path: '/cart/:id',
-          method: 'post',
-          func: this.addCourse,
-          middlewares: [new AuthGuard()],
-        },
-        {
-          path: '/cart/:id',
-          method: 'delete',
-          func: this.deleteCourse,
-          middlewares: [new AuthGuard()],
-        },
+        // {
+        //   path: '/cart/:id',
+        //   method: 'post',
+        //   func: this.addCourse,
+        //   middlewares: [new AuthGuard()],
+        // },
+        // {
+        //   path: '/cart/:id',
+        //   method: 'delete',
+        //   func: this.deleteCourse,
+        //   middlewares: [new AuthGuard()],
+        // },
         // {
         //   path: '/cart',
         //   method: 'get',
@@ -62,21 +62,21 @@ export class UserController extends BaseController implements IUserController {
     this.ok(res, userInfo)
   }
 
-  async addCourse(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const result = await this.userService.addCourse(req.user.email, req.params.id)
-    if (!result) {
-      return next(new HTTPError(400, 'Ошибка', 'add-course'))
-    }
-    this.ok(res, result)
-  }
+  // async addCourse(req: Request, res: Response, next: NextFunction): Promise<void> {
+  //   const result = await this.userService.addCourse(req.user.email, req.params.id)
+  //   if (!result) {
+  //     return next(new HTTPError(400, 'Ошибка', 'add-course'))
+  //   }
+  //   this.ok(res, result)
+  // }
 
-  async deleteCourse(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const result = await this.userService.deleteCourse(req.user.email, req.params.id)
-    if (!result) {
-      return next(new HTTPError(400, 'Ошибка', 'delete-course'))
-    }
-    this.ok(res, result)
-  }
+  // async deleteCourse(req: Request, res: Response, next: NextFunction): Promise<void> {
+  //   const result = await this.userService.deleteCourse(req.user.email, req.params.id)
+  //   if (!result) {
+  //     return next(new HTTPError(400, 'Ошибка', 'delete-course'))
+  //   }
+  //   this.ok(res, result)
+  // }
 
   // async fetchCart(req: Request, res: Response, next: NextFunction): Promise<void> {
   //   const result = await this.userService.getCart(req.user.email)
