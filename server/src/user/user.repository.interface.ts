@@ -1,6 +1,3 @@
-import { Model } from 'mongoose'
-import { Cart } from '../cart/cart.entity'
-import { IUserModel } from '../interfaces/user-model.interface'
 import { User } from './user.entity'
 
 export interface IUserRepository {

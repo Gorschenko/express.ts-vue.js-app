@@ -44,8 +44,8 @@ export class App {
 
   useRoutes(): void {
     this.app.use('/cart', this.cartController.router)
-    this.app.use('/entry', this.authController.router)
-    this.app.use('/auth', this.userController.router)
+    this.app.use('/auth', this.authController.router)
+    this.app.use('/user', this.userController.router)
     this.app.use('/courses', this.courseController.router)
   }
 

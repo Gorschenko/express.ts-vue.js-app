@@ -1,12 +1,10 @@
 // В Сервисе только бизнес логика
-import e from 'express'
 import { inject, injectable } from 'inversify'
 import { ObjectId } from 'mongoose'
 import { AuthLoginDto } from '../auth/dto/auth-login.dto'
 import { AuthRegisterDto } from '../auth/dto/auth-register.dto'
 import { ICartRepository } from '../cart/cart.repository.interface'
 import { IConfigService } from '../config/config.service.interface'
-import { IUserCart, IUserCartItem } from '../interfaces/user-cart.interface'
 import { TYPES } from '../types'
 import { User } from './user.entity'
 import { IUserRepository } from './user.repository.interface'
@@ -54,18 +52,17 @@ export class UserService implements IUSerService {
     return this.userRepository.find(email)
   }
 
-  // async updateFavorites(email: string, type: string, courseId: string): Promise<User | null> {
-  //   const user = await this.userRepository.find(email)
-  //   if (user) {
-  //     const favorites = user.favorites
-  //     const hasItem = favorites[type].find((i) => i.toString() === courseId.toString())
-  //     if (hasItem) {
-  //       favorites[type] = favorites[type].filter((i) => i.toString() !== courseId.toString())
-  //     } else {
-  //       favorites[type].push(courseId as unknown as ObjectId)
-  //     }
-  //     return await this.userRepository.update(user)
-  //   }
-  //   return null
-  // }
+  async updateLabels(email: string, type: string, courseId: string): Promise<User | null> {
+    const user = await this.userRepository.find(email)
+    if (user) {
+      const favorites = user.labels[type]
+      const hasItem = favorites.find((i) => i.toString() === courseId)
+      const result = hasItem
+        ? favorites.filter((i) => i.toString() !== courseId)
+        : favorites.concat(courseId as unknown as ObjectId)
+      user.labels[type] = result
+      return await this.userRepository.update(user)
+    }
+    return null
+  }
 }

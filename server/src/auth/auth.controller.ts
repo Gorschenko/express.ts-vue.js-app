@@ -35,7 +35,7 @@ export class AuthController extends BaseController implements IAuthController {
           middlewares: [new ValidateMiddleware(AuthRegisterDto)],
         },
       ],
-      '/entry',
+      '/auth',
     )
   }
   // +

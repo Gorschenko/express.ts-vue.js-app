@@ -1,13 +1,22 @@
 import { compare, hash } from 'bcryptjs'
+import { Schema } from 'mongoose'
 import { Cart } from '../cart/cart.entity'
+
+export interface IUserLabels {
+  [key: string]: Schema.Types.ObjectId[]
+}
 
 export class User {
   password: string
   cart: Cart
+  labels: IUserLabels
 
   constructor(public email: string, public name: string, hashPassword?: string) {
     if (hashPassword) {
       this.password = hashPassword
+    }
+    this.labels = {
+      favorites: [],
     }
   }
 
