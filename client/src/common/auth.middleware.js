@@ -1,5 +1,5 @@
 const authMiddleware = ({ next, store, nextMiddleware }) => {
-  if (!store.getters['auth/isAuthenticated']) {
+  if (!store.getters['user/user']) {
     return next({
       name: 'main-page'
     })

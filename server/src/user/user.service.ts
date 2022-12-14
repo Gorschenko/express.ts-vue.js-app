@@ -49,11 +49,11 @@ export class UserService implements IUSerService {
   }
   // +
   async getUserInfo(email: string): Promise<User | null> {
-    return this.userRepository.find(email)
+    return this.userRepository.find(email, 'cart._id')
   }
 
   async updateLabels(email: string, type: string, courseId: string): Promise<User | null> {
-    const user = await this.userRepository.find(email)
+    const user = await this.userRepository.find(email, 'cart._id')
     if (user) {
       const favorites = user.labels[type]
       const hasItem = favorites.find((i) => i.toString() === courseId)
@@ -61,7 +61,7 @@ export class UserService implements IUSerService {
         ? favorites.filter((i) => i.toString() !== courseId)
         : favorites.concat(courseId as unknown as ObjectId)
       user.labels[type] = result
-      return await this.userRepository.update(user)
+      return await this.userRepository.update(user, 'cart._id')
     }
     return null
   }

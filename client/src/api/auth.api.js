@@ -2,7 +2,7 @@ import { useHttp } from '@/common/http.middleware'
 
 const signIn = async formData => {
   return await useHttp(
-    '/entry/login',
+    '/auth/login',
     'POST',
     formData,
   )
@@ -10,7 +10,7 @@ const signIn = async formData => {
 
 const signUp = async formData => {
   return await useHttp(
-    '/entry/register',
+    '/auth/register',
     'POST',
     formData,
   )

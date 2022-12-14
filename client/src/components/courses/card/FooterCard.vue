@@ -51,7 +51,7 @@ export default {
   setup (props) {
     const store = useStore()
     const counter = computed(() => 
-      store.getters['user/user'].cart.items?.find(i => i._id === props.courseId)?.count || 0
+      store.getters['user/user'].cart._id.items?.find(i => i._id === props.courseId)?.count || 0
     )
 
     return {

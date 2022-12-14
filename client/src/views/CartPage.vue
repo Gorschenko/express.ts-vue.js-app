@@ -9,7 +9,7 @@
         <p class="text_l text_weight_accent mr-16">
           {{ i + 1 }}
         </p>
-        <p class="text_m mr-8">{{ item._id.title }}</p>
+        <p class="text_m mr-8">{{ item._id }}</p>
         <p class="text_m">{{ item.count }}</p>
       </li>
     </ul>
@@ -19,8 +19,9 @@
 import { useNotification } from '@kyvg/vue3-notification';
 import {
   fetchCart,
-} from '@/api/user.api'
-import { ref, onMounted } from 'vue'
+} from '@/api/cart.api'
+import { useStore } from 'vuex'
+import { ref, onMounted, computed } from 'vue'
 
 
 export default {
@@ -29,15 +30,19 @@ export default {
   },
   setup() {
     const { notify}  = useNotification()
+    const store = useStore()
     const cart = ref({})
+    const user = computed(() => store.getters['user/user'])
 
     onMounted(async () => {
       cart.value = await getCartHandler()
+      console.log(cart.value)
     })
 
     const getCartHandler = async () => {
       try {
-        return await fetchCart()
+        const response = await fetchCart(user.value.cart._id._id)
+        return response[0]
       } catch (e) {
         notify({ type: 'error', title: 'Ошибка', text: e.message});
       }

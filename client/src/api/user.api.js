@@ -2,41 +2,18 @@ import { useHttp } from '@/common/http.middleware'
 
 const getUser = async () => {
   return await useHttp(
-    '/auth/info',
+    '/user',
   )
 }
 
-const addCourseToCart = async courseId => {
+const updateLabels = async (type, courseId) => {
   return await useHttp(
-    `/auth/cart/${courseId}`,
-    'POST',
-  )
-}
-
-const deleteCourseToCart = async courseId => {
-  return await useHttp(
-    `/auth/cart/${courseId}`,
-    'DELETE',
-  )
-}
-
-const fetchCart = async () => {
-  return await useHttp(
-    `/auth/cart`,
-  )
-}
-
-const updateFavorite = async (type, courseId) => {
-  return await useHttp(
-    `/auth/favorites/${type}/${courseId}`,
+    `/user/labels/${type}/${courseId}`,
     'POST',
   )
 }
 
 export {
   getUser,
-  addCourseToCart,
-  deleteCourseToCart,
-  updateFavorite,
-  fetchCart,
+  updateLabels,
 }

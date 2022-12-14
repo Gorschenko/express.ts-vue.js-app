@@ -6,7 +6,7 @@
           'bx bxs-star icon_24  tr-primary',
           hasFavorite ? 'color_yellow' : 'color_neutral color_hovered_yellow'
         ]"
-        @click="$emit('update-favorite')"
+        @click="$emit('update-labels')"
       />
       <h1 class="text_l text_weight_accent">{{ course.title }}</h1>
       <DefaultButton
@@ -33,7 +33,7 @@
     <FooterCard
       :course-id="course._id"
       @add-to-cart="$emit('add-to-cart')"
-      @delete-to-cart="$emit('delete-to-cart')"
+      @delete-to-cart="$emit('delete-from-cart')"
     />
   </article>
 </template>
@@ -48,9 +48,9 @@ export default {
   emits: [
     'edit',
     'delete',
-    'delete-to-cart',
+    'delete-from-cart',
     'add-to-cart',
-    'update-favorite'
+    'update-labels'
   ],
   components: {
     DefaultButton,
@@ -65,7 +65,7 @@ export default {
   setup(props) {
     const store = useStore()
     const hasFavorite = computed(
-      () => store.getters['user/user'].favorites.courses.find(i => i === props.course._id)
+      () => store.getters['user/user'].labels.favorites.find(i => i === props.course._id)
     )
     return {
       hasFavorite,

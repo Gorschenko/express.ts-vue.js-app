@@ -18,9 +18,9 @@
           v-for="course in courses"
           :key="course._id"
           :course="course"
-          @update-favorite="updateFavoriteHandler(course._id)"
+          @update-labels="updateLabelsHandler(course._id)"
           @add-to-cart="addCourseToCartHandler(course._id)"
-          @delete-to-cart="deleteCourseToCartHandler(course._id)"
+          @delete-from-cart="deleteCourseFromCartHandler(course._id)"
           @edit="setEdition(course)"
           @delete="confirmDeleteCourse(course._id)"
         />
@@ -54,11 +54,14 @@ import {
   createCourse,
 } from '@/api/courses.api'
 import {
+  updateLabels,
+} from '@/api/user.api'
+import {
   addCourseToCart,
   deleteCourseToCart,
-  updateFavorite,
-} from '@/api/user.api'
-import { ref, reactive } from 'vue'
+} from '@/api/cart.api'
+import { ref, reactive, computed } from 'vue'
+import { cloneDeep } from 'lodash'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { useNotification } from '@kyvg/vue3-notification';
@@ -86,6 +89,7 @@ export default {
     }
 
     const courses = ref([])
+    const user = computed(() => store.getters['user/user'])
     const init = async () => {
       try {
         courses.value = await getCourses()
@@ -94,20 +98,45 @@ export default {
       }
     }
     init()
-
+    
     const addCourseToCartHandler = async courseId => {
       try {
-        const updatedUser = await addCourseToCart(courseId)
+        await addCourseToCart(user.value.cart._id._id, courseId)
+        const updatedUser = cloneDeep(user.value)
+        let updatedCartItems = updatedUser.cart._id.items
+        const isAdded = updatedUser.cart._id.items.find(i => i._id === courseId)
+        if (isAdded) {
+          updatedCartItems = updatedCartItems.map(i => {
+            if (i._id === courseId) {
+            i.count = i.count + 1
+            }
+            return i
+          })
+        }
+        updatedCartItems.push({
+          _id: courseId,
+          count: 1,
+        })
+        updatedUser.cart._id.items = updatedCartItems
         store.commit('user/SET_USER', updatedUser)
         notify({ type: 'success', title: 'Успешно', text: 'Курс был успешно добавлен в корзину'});
       } catch (e) {
         notify({ type: 'error', title: 'Ошибка', text: e.message});
       }
     }
-
-    const deleteCourseToCartHandler = async courseId => {
+    const deleteCourseFromCartHandler = async courseId => {
       try {
-        const updatedUser = await deleteCourseToCart(courseId)
+        await deleteCourseToCart(user.value.cart._id._id, courseId)
+        const updatedUser = cloneDeep(user.value)
+        const updatedCartItems = updatedUser.cart._id.items
+          .map(i => {
+            if (i._id === courseId) {
+              i.count = i.count - 1
+            }
+            return i
+          })
+          .filter(i => i.count)
+        updatedUser.cart._id.items = updatedCartItems
         store.commit('user/SET_USER', updatedUser)
         notify({ type: 'success', title: 'Успешно', text: 'Курс был успешно удален из корзины'});
       } catch (e) {
@@ -166,9 +195,9 @@ export default {
       }
     }
 
-    const updateFavoriteHandler = async courseId => {
+    const updateLabelsHandler = async courseId => {
       try {
-        const updatedUser = await updateFavorite('courses', courseId)
+        const updatedUser = await updateLabels('favorites', courseId)
         store.commit('user/SET_USER', updatedUser)
         notify({ type: 'success', title: 'Успешно', text: 'Избранное успешно обновлено'});
       } catch (e) {
@@ -181,12 +210,12 @@ export default {
       setModal,
       courses,
       addCourseToCartHandler,
-      deleteCourseToCartHandler,
+      deleteCourseFromCartHandler,
       setEdition,
       confirmDeleteCourse,
       deleteCourseHandler,
       createCourseHandler,
-      updateFavoriteHandler,
+      updateLabelsHandler,
     }
   },
 }
