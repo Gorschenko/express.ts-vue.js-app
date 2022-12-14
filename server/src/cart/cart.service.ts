@@ -1,5 +1,4 @@
 import { inject, injectable } from 'inversify'
-import CartModel from '../database/models/cart.models'
 import { TYPES } from '../types'
 import { IUserRepository } from '../user/user.repository.interface'
 import { Cart } from './cart.entity'
@@ -29,14 +28,17 @@ export class CartService implements ICartService {
     }
     return false
   }
-
-  // async delete(email: string, courseId: string): Promise<boolean> {
-  //   const user = await this.userRepository.find(email)
-  //   if (user?.cart.items) {
-  //     const cart = new Cart(user.cart.items, user.cart._id?.toString())
-  //     cart.deleteItem(courseId)
-  //     return true
-  //   }
-  //   return false
-  // }
+  // +
+  async delete(cartId: string, courseId: string): Promise<boolean> {
+    const cart = await this.cartRepository.find(cartId)
+    if (cart.length) {
+      const updatedCart = new Cart(cart[0])
+      updatedCart.delete(courseId)
+      const result = await this.cartRepository.update(updatedCart)
+      if (result) {
+        return true
+      }
+    }
+    return false
+  }
 }

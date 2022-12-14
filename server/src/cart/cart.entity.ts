@@ -32,14 +32,17 @@ export class Cart {
       count: 1,
     })
   }
-  // deleteItem(courseId: string): void {
-  //   this.items = this.items
-  //     .map((i: IUserCartItem) => {
-  //       if (i._id.toString() === courseId.toString()) {
-  //         i.count = i.count - 1
-  //       }
-  //       return i
-  //     })
-  //     .filter((i: IUserCartItem) => i.count !== 0)
-  // }
+
+  delete(courseId: string): void {
+    if (this.items.length) {
+      this.items = this.items
+        .map((i) => {
+          if (i._id.toString() === courseId) {
+            i.count = i.count - 1
+          }
+          return i
+        })
+        .filter((i) => i.count)
+    }
+  }
 }

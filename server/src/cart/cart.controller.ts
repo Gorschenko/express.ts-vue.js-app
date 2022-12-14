@@ -30,12 +30,12 @@ export class CartController extends BaseController implements ICartController {
           func: this.add,
           middlewares: [new AuthGuard()],
         },
-        // {
-        //   path: '/:id',
-        //   method: 'delete',
-        //   func: this.delete,
-        //   middlewares: [new AuthGuard()],
-        // },
+        {
+          path: '/:cartId/delete/:courseId',
+          method: 'delete',
+          func: this.delete,
+          middlewares: [new AuthGuard()],
+        },
       ],
       '/cart',
     )
@@ -56,12 +56,12 @@ export class CartController extends BaseController implements ICartController {
     }
     this.ok(res, result)
   }
-
-  // async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
-  //   const result = await this.cartService.delete(req.params.cartId, req.params.courseId)
-  //   if (!result) {
-  //     return next(new HTTPError(400, 'Ошибка', 'delete-course'))
-  //   }
-  //   this.ok(res, result)
-  // }
+  // +
+  async delete(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const result = await this.cartService.delete(req.params.cartId, req.params.courseId)
+    if (!result) {
+      return next(new HTTPError(400, 'Ошибка', 'delete-course'))
+    }
+    this.ok(res, result)
+  }
 }
